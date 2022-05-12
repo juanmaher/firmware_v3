@@ -191,13 +191,19 @@ int main(void)
 
 			/* Then if there are a pressed button */
 			if (BUTTON_Status != 0)
+				/*if (BUTTON_Status == 2 | BUTTON_Status == 4 | BUTTON_Status == 6 | BUTTON_Status == 8) {
+					/* Then Raise an Event -> evTECXOprimodo => OK,
+					 * and Value of pressed button -> viTecla */
+					composteraIface_raise_evTECXOprimido(&statechart, BUTTON_Status);
+				/*} else {
+					composteraIface_raise_evTEC1Oprimido(&statechart, BUTTON_Status);
+				}*/
+			else {
+					composteraIface_raise_evTEC1NoOprimido(&statechart, BUTTON_Status);
+					/* Then else Raise an Event -> evTECXNoOprimido => OK */
+					composteraIface_raise_evTECXNoOprimido(&statechart, BUTTON_Status);
+			}
 
-				/* Then Raise an Event -> evTECXOprimodo => OK,
-				 * and Value of pressed button -> viTecla */
-				composteraIface_raise_evTECXOprimido(&statechart, BUTTON_Status);
-			else
-				/* Then else Raise an Event -> evTECXNoOprimido => OK */
-				composteraIface_raise_evTECXNoOprimido(&statechart, BUTTON_Status);
 
 			/* Then Run an Cycle of Statechart */
 			compostera_runCycle(&statechart);		// Run Cycle of Statechart
