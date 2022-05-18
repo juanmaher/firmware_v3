@@ -146,6 +146,8 @@ int main(void)
 
 	uint32_t BUTTON_Status;
 
+	uint32_t BUTTON_Press = 0;
+
 	/* Generic Initialization */
 	boardConfig();
 
@@ -198,25 +200,43 @@ int main(void)
 				switch (BUTTON_Status) {
 					case BUTTON_2:
 						composteraIface_raise_evTEC2Oprimido(&statechart);
+						BUTTON_Press = BUTTON_2;
 						break;
 					case BUTTON_3:
 						composteraIface_raise_evTEC3Oprimido(&statechart);
+						BUTTON_Press = BUTTON_3;
 						break;
 					case BUTTON_4:
 						composteraIface_raise_evTEC4Oprimido(&statechart);
+						BUTTON_Press = BUTTON_4;
 						break;
 					default:
 						if(BUTTON_Status & BUTTON_1) {
 							composteraIface_raise_evTEC1Oprimido(&statechart);
-						}
+							BUTTON_Press = BUTTON_1;
+						} else BUTTON_Press = 0;
 						break;
 				}
 
 			} else {
-				composteraIface_raise_evTEC1NoOprimido(&statechart);
-				composteraIface_raise_evTEC2NoOprimido(&statechart);
-				composteraIface_raise_evTEC3NoOprimido(&statechart);
-				composteraIface_raise_evTEC4NoOprimido(&statechart);
+				switch (BUTTON_Press) {
+					case BUTTON_1:
+						composteraIface_raise_evTEC1NoOprimido(&statechart);
+						break;
+					case BUTTON_2:
+						composteraIface_raise_evTEC2NoOprimido(&statechart);
+						break;
+					case BUTTON_3:
+						composteraIface_raise_evTEC3NoOprimido(&statechart);
+						break;
+					case BUTTON_4:
+						composteraIface_raise_evTEC4NoOprimido(&statechart);
+						break;
+					default:
+						break;
+				}
+
+				BUTTON_Press = 0;
 			}
 
 

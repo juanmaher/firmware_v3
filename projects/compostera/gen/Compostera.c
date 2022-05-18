@@ -53,20 +53,21 @@ static sc_boolean check_TEC4_NO_OPRIMIDO_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC4_DEBOUNCE_N_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC4_VALIDACION_N_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC4_VALIDACION_N_O_tr1_tr1(const Compostera* handle);
-static sc_boolean check_activity_ESPERANDO_tr0_tr0(const Compostera* handle);
-static sc_boolean check_activity_ESPERANDO_tr1_tr1(const Compostera* handle);
-static sc_boolean check_activity_ESPERANDO_tr2_tr2(const Compostera* handle);
-static sc_boolean check_activity_ESPERANDO_tr3_tr3(const Compostera* handle);
-static sc_boolean check_activity_ENFRIANDO_tr0_tr0(const Compostera* handle);
-static sc_boolean check_activity_ENFRIANDO_tr1_tr1(const Compostera* handle);
-static sc_boolean check_activity_HUMEDECIENDO_tr0_tr0(const Compostera* handle);
-static sc_boolean check_activity_HUMEDECIENDO_tr1_tr1(const Compostera* handle);
-static sc_boolean check_activity_DESHUMEDECIENDO_tr0_tr0(const Compostera* handle);
-static sc_boolean check_activity_DESHUMEDECIENDO_tr1_tr1(const Compostera* handle);
-static sc_boolean check_activity_COMPOSTANDO_r1_RELLENANDO_tr0_tr0(const Compostera* handle);
-static sc_boolean check_activity_COMPOSTANDO_r1_RELLENANDO_tr1_tr1(const Compostera* handle);
-static sc_boolean check_activity_COMPOSTANDO_r1_SONANDO_tr0_tr0(const Compostera* handle);
-static sc_boolean check_activity_COMPOSTANDO_r1_MEZCLANDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Humedad_HUMEDECIENDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Humedad_HUMEDECIENDO_tr1_tr1(const Compostera* handle);
+static sc_boolean check_Humedad_DESHUMEDECIENDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Humedad_DESHUMEDECIENDO_tr1_tr1(const Compostera* handle);
+static sc_boolean check_Humedad_ESPERANDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Humedad_ESPERANDO_tr1_tr1(const Compostera* handle);
+static sc_boolean check_Temperatura_ENFRIANDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Temperatura_ENFRIANDO_tr1_tr1(const Compostera* handle);
+static sc_boolean check_Temperatura_ESPERANDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Compostar_RELLENANDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Compostar_RELLENANDO_tr1_tr1(const Compostera* handle);
+static sc_boolean check_Compostar_ESPERANDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Compostar_SONANDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Compostar_MEZCLANDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_Compostar_MEZCLANDO_tr1_tr1(const Compostera* handle);
 static void effect_TEC1_DEBOUNCE_O_tr0(Compostera* handle);
 static void effect_TEC1_INICIO_tr0(Compostera* handle);
 static void effect_TEC1_OPRIMIDO_tr0(Compostera* handle);
@@ -111,21 +112,21 @@ static void effect_TEC4_NO_OPRIMIDO_tr1(Compostera* handle);
 static void effect_TEC4_DEBOUNCE_N_O_tr0(Compostera* handle);
 static void effect_TEC4_VALIDACION_N_O_tr0(Compostera* handle);
 static void effect_TEC4_VALIDACION_N_O_tr1(Compostera* handle);
-static void effect_activity_ESPERANDO_tr0(Compostera* handle);
-static void effect_activity_ESPERANDO_tr1(Compostera* handle);
-static void effect_activity_ESPERANDO_tr2(Compostera* handle);
-static void effect_activity_ESPERANDO_tr3(Compostera* handle);
-static void effect_activity_ENFRIANDO_tr0(Compostera* handle);
-static void effect_activity_ENFRIANDO_tr1(Compostera* handle);
-static void effect_activity_HUMEDECIENDO_tr0(Compostera* handle);
-static void effect_activity_HUMEDECIENDO_tr1(Compostera* handle);
-static void effect_activity_DESHUMEDECIENDO_tr0(Compostera* handle);
-static void effect_activity_DESHUMEDECIENDO_tr1(Compostera* handle);
-static void effect_activity_COMPOSTANDO_tr0(Compostera* handle);
-static void effect_activity_COMPOSTANDO_r1_RELLENANDO_tr0(Compostera* handle);
-static void effect_activity_COMPOSTANDO_r1_RELLENANDO_tr1(Compostera* handle);
-static void effect_activity_COMPOSTANDO_r1_SONANDO_tr0(Compostera* handle);
-static void effect_activity_COMPOSTANDO_r1_MEZCLANDO_tr0(Compostera* handle);
+static void effect_Humedad_HUMEDECIENDO_tr0(Compostera* handle);
+static void effect_Humedad_HUMEDECIENDO_tr1(Compostera* handle);
+static void effect_Humedad_DESHUMEDECIENDO_tr0(Compostera* handle);
+static void effect_Humedad_DESHUMEDECIENDO_tr1(Compostera* handle);
+static void effect_Humedad_ESPERANDO_tr0(Compostera* handle);
+static void effect_Humedad_ESPERANDO_tr1(Compostera* handle);
+static void effect_Temperatura_ENFRIANDO_tr0(Compostera* handle);
+static void effect_Temperatura_ENFRIANDO_tr1(Compostera* handle);
+static void effect_Temperatura_ESPERANDO_tr0(Compostera* handle);
+static void effect_Compostar_RELLENANDO_tr0(Compostera* handle);
+static void effect_Compostar_RELLENANDO_tr1(Compostera* handle);
+static void effect_Compostar_ESPERANDO_tr0(Compostera* handle);
+static void effect_Compostar_SONANDO_tr0(Compostera* handle);
+static void effect_Compostar_MEZCLANDO_tr0(Compostera* handle);
+static void effect_Compostar_MEZCLANDO_tr1(Compostera* handle);
 static void enact_TEC1_DEBOUNCE_O(Compostera* handle);
 static void enact_TEC1_OPRIMIDO(Compostera* handle);
 static void enact_TEC1_NO_OPRIMIDO(Compostera* handle);
@@ -142,13 +143,15 @@ static void enact_TEC4_DEBOUNCE_O(Compostera* handle);
 static void enact_TEC4_OPRIMIDO(Compostera* handle);
 static void enact_TEC4_NO_OPRIMIDO(Compostera* handle);
 static void enact_TEC4_DEBOUNCE_N_O(Compostera* handle);
-static void enact_activity_ESPERANDO(Compostera* handle);
-static void enact_activity_ENFRIANDO(Compostera* handle);
-static void enact_activity_HUMEDECIENDO(Compostera* handle);
-static void enact_activity_DESHUMEDECIENDO(Compostera* handle);
-static void enact_activity_COMPOSTANDO_r1_RELLENANDO(Compostera* handle);
-static void enact_activity_COMPOSTANDO_r1_SONANDO(Compostera* handle);
-static void enact_activity_COMPOSTANDO_r1_MEZCLANDO(Compostera* handle);
+static void enact_Humedad_HUMEDECIENDO(Compostera* handle);
+static void enact_Humedad_DESHUMEDECIENDO(Compostera* handle);
+static void enact_Humedad_ESPERANDO(Compostera* handle);
+static void enact_Temperatura_ENFRIANDO(Compostera* handle);
+static void enact_Temperatura_ESPERANDO(Compostera* handle);
+static void enact_Compostar_RELLENANDO(Compostera* handle);
+static void enact_Compostar_ESPERANDO(Compostera* handle);
+static void enact_Compostar_SONANDO(Compostera* handle);
+static void enact_Compostar_MEZCLANDO(Compostera* handle);
 static void exact_TEC1_DEBOUNCE_O(Compostera* handle);
 static void exact_TEC1_DEBOUNCE_N_O(Compostera* handle);
 static void exact_TEC2_DEBOUNCE_O(Compostera* handle);
@@ -157,8 +160,8 @@ static void exact_TEC3_DEBOUNCE_O(Compostera* handle);
 static void exact_TEC3_DEBOUNCE_N_O(Compostera* handle);
 static void exact_TEC4_DEBOUNCE_O(Compostera* handle);
 static void exact_TEC4_DEBOUNCE_N_O(Compostera* handle);
-static void exact_activity_COMPOSTANDO_r1_RELLENANDO(Compostera* handle);
-static void exact_activity_COMPOSTANDO_r1_MEZCLANDO(Compostera* handle);
+static void exact_Compostar_RELLENANDO(Compostera* handle);
+static void exact_Compostar_MEZCLANDO(Compostera* handle);
 static void enseq_TEC1_DEBOUNCE_O_default(Compostera* handle);
 static void enseq_TEC1_INICIO_default(Compostera* handle);
 static void enseq_TEC1_OPRIMIDO_default(Compostera* handle);
@@ -187,20 +190,22 @@ static void enseq_TEC4_VALIDACION_O_default(Compostera* handle);
 static void enseq_TEC4_NO_OPRIMIDO_default(Compostera* handle);
 static void enseq_TEC4_DEBOUNCE_N_O_default(Compostera* handle);
 static void enseq_TEC4_VALIDACION_N_O_default(Compostera* handle);
-static void enseq_activity_ESPERANDO_default(Compostera* handle);
-static void enseq_activity_ENFRIANDO_default(Compostera* handle);
-static void enseq_activity_HUMEDECIENDO_default(Compostera* handle);
-static void enseq_activity_DESHUMEDECIENDO_default(Compostera* handle);
-static void enseq_activity_COMPOSTANDO_default(Compostera* handle);
-static void enseq_activity_COMPOSTANDO_r1_RELLENANDO_default(Compostera* handle);
-static void enseq_activity_COMPOSTANDO_r1_SONANDO_default(Compostera* handle);
-static void enseq_activity_COMPOSTANDO_r1_MEZCLANDO_default(Compostera* handle);
+static void enseq_Humedad_HUMEDECIENDO_default(Compostera* handle);
+static void enseq_Humedad_DESHUMEDECIENDO_default(Compostera* handle);
+static void enseq_Humedad_ESPERANDO_default(Compostera* handle);
+static void enseq_Temperatura_ENFRIANDO_default(Compostera* handle);
+static void enseq_Temperatura_ESPERANDO_default(Compostera* handle);
+static void enseq_Compostar_RELLENANDO_default(Compostera* handle);
+static void enseq_Compostar_ESPERANDO_default(Compostera* handle);
+static void enseq_Compostar_SONANDO_default(Compostera* handle);
+static void enseq_Compostar_MEZCLANDO_default(Compostera* handle);
 static void enseq_TEC1_default(Compostera* handle);
 static void enseq_TEC2_default(Compostera* handle);
 static void enseq_TEC3_default(Compostera* handle);
 static void enseq_TEC4_default(Compostera* handle);
-static void enseq_activity_default(Compostera* handle);
-static void enseq_activity_COMPOSTANDO_r1_default(Compostera* handle);
+static void enseq_Humedad_default(Compostera* handle);
+static void enseq_Temperatura_default(Compostera* handle);
+static void enseq_Compostar_default(Compostera* handle);
 static void exseq_TEC1_DEBOUNCE_O(Compostera* handle);
 static void exseq_TEC1_INICIO(Compostera* handle);
 static void exseq_TEC1_OPRIMIDO(Compostera* handle);
@@ -229,20 +234,22 @@ static void exseq_TEC4_VALIDACION_O(Compostera* handle);
 static void exseq_TEC4_NO_OPRIMIDO(Compostera* handle);
 static void exseq_TEC4_DEBOUNCE_N_O(Compostera* handle);
 static void exseq_TEC4_VALIDACION_N_O(Compostera* handle);
-static void exseq_activity_ESPERANDO(Compostera* handle);
-static void exseq_activity_ENFRIANDO(Compostera* handle);
-static void exseq_activity_HUMEDECIENDO(Compostera* handle);
-static void exseq_activity_DESHUMEDECIENDO(Compostera* handle);
-static void exseq_activity_COMPOSTANDO(Compostera* handle);
-static void exseq_activity_COMPOSTANDO_r1_RELLENANDO(Compostera* handle);
-static void exseq_activity_COMPOSTANDO_r1_SONANDO(Compostera* handle);
-static void exseq_activity_COMPOSTANDO_r1_MEZCLANDO(Compostera* handle);
+static void exseq_Humedad_HUMEDECIENDO(Compostera* handle);
+static void exseq_Humedad_DESHUMEDECIENDO(Compostera* handle);
+static void exseq_Humedad_ESPERANDO(Compostera* handle);
+static void exseq_Temperatura_ENFRIANDO(Compostera* handle);
+static void exseq_Temperatura_ESPERANDO(Compostera* handle);
+static void exseq_Compostar_RELLENANDO(Compostera* handle);
+static void exseq_Compostar_ESPERANDO(Compostera* handle);
+static void exseq_Compostar_SONANDO(Compostera* handle);
+static void exseq_Compostar_MEZCLANDO(Compostera* handle);
 static void exseq_TEC1(Compostera* handle);
 static void exseq_TEC2(Compostera* handle);
 static void exseq_TEC3(Compostera* handle);
 static void exseq_TEC4(Compostera* handle);
-static void exseq_activity(Compostera* handle);
-static void exseq_activity_COMPOSTANDO_r1(Compostera* handle);
+static void exseq_Humedad(Compostera* handle);
+static void exseq_Temperatura(Compostera* handle);
+static void exseq_Compostar(Compostera* handle);
 static void react_TEC1_DEBOUNCE_O(Compostera* handle);
 static void react_TEC1_INICIO(Compostera* handle);
 static void react_TEC1_OPRIMIDO(Compostera* handle);
@@ -271,20 +278,22 @@ static void react_TEC4_VALIDACION_O(Compostera* handle);
 static void react_TEC4_NO_OPRIMIDO(Compostera* handle);
 static void react_TEC4_DEBOUNCE_N_O(Compostera* handle);
 static void react_TEC4_VALIDACION_N_O(Compostera* handle);
-static void react_activity_ESPERANDO(Compostera* handle);
-static void react_activity_ENFRIANDO(Compostera* handle);
-static void react_activity_HUMEDECIENDO(Compostera* handle);
-static void react_activity_DESHUMEDECIENDO(Compostera* handle);
-static void react_activity_COMPOSTANDO_r1_RELLENANDO(Compostera* handle);
-static void react_activity_COMPOSTANDO_r1_SONANDO(Compostera* handle);
-static void react_activity_COMPOSTANDO_r1_MEZCLANDO(Compostera* handle);
+static void react_Humedad_HUMEDECIENDO(Compostera* handle);
+static void react_Humedad_DESHUMEDECIENDO(Compostera* handle);
+static void react_Humedad_ESPERANDO(Compostera* handle);
+static void react_Temperatura_ENFRIANDO(Compostera* handle);
+static void react_Temperatura_ESPERANDO(Compostera* handle);
+static void react_Compostar_RELLENANDO(Compostera* handle);
+static void react_Compostar_ESPERANDO(Compostera* handle);
+static void react_Compostar_SONANDO(Compostera* handle);
+static void react_Compostar_MEZCLANDO(Compostera* handle);
 static void react_TEC1__entry_Default(Compostera* handle);
 static void react_TEC2__entry_Default(Compostera* handle);
 static void react_TEC3__entry_Default(Compostera* handle);
 static void react_TEC4__entry_Default(Compostera* handle);
-static void react_activity__entry_Default(Compostera* handle);
-static void react_activity_COMPOSTANDO_r1__entry_Default(Compostera* handle);
-static void react_activity_COMPOSTANDO_r1__exit_Default(Compostera* handle);
+static void react_Humedad__entry_Default(Compostera* handle);
+static void react_Temperatura__entry_Default(Compostera* handle);
+static void react_Compostar__entry_Default(Compostera* handle);
 static void clearInEvents(Compostera* handle);
 static void clearOutEvents(Compostera* handle);
 
@@ -325,7 +334,9 @@ void compostera_enter(Compostera* handle)
 	enseq_TEC2_default(handle);
 	enseq_TEC3_default(handle);
 	enseq_TEC4_default(handle);
-	enseq_activity_default(handle);
+	enseq_Humedad_default(handle);
+	enseq_Temperatura_default(handle);
+	enseq_Compostar_default(handle);
 }
 
 void compostera_runCycle(Compostera* handle)
@@ -478,39 +489,49 @@ void compostera_runCycle(Compostera* handle)
 			react_TEC4_VALIDACION_N_O(handle);
 			break;
 		}
-		case Compostera_activity_ESPERANDO:
+		case Compostera_Humedad_HUMEDECIENDO:
 		{
-			react_activity_ESPERANDO(handle);
+			react_Humedad_HUMEDECIENDO(handle);
 			break;
 		}
-		case Compostera_activity_ENFRIANDO:
+		case Compostera_Humedad_DESHUMEDECIENDO:
 		{
-			react_activity_ENFRIANDO(handle);
+			react_Humedad_DESHUMEDECIENDO(handle);
 			break;
 		}
-		case Compostera_activity_HUMEDECIENDO:
+		case Compostera_Humedad_ESPERANDO:
 		{
-			react_activity_HUMEDECIENDO(handle);
+			react_Humedad_ESPERANDO(handle);
 			break;
 		}
-		case Compostera_activity_DESHUMEDECIENDO:
+		case Compostera_Temperatura_ENFRIANDO:
 		{
-			react_activity_DESHUMEDECIENDO(handle);
+			react_Temperatura_ENFRIANDO(handle);
 			break;
 		}
-		case Compostera_activity_COMPOSTANDO_r1_RELLENANDO:
+		case Compostera_Temperatura_ESPERANDO:
 		{
-			react_activity_COMPOSTANDO_r1_RELLENANDO(handle);
+			react_Temperatura_ESPERANDO(handle);
 			break;
 		}
-		case Compostera_activity_COMPOSTANDO_r1_SONANDO:
+		case Compostera_Compostar_RELLENANDO:
 		{
-			react_activity_COMPOSTANDO_r1_SONANDO(handle);
+			react_Compostar_RELLENANDO(handle);
 			break;
 		}
-		case Compostera_activity_COMPOSTANDO_r1_MEZCLANDO:
+		case Compostera_Compostar_ESPERANDO:
 		{
-			react_activity_COMPOSTANDO_r1_MEZCLANDO(handle);
+			react_Compostar_ESPERANDO(handle);
+			break;
+		}
+		case Compostera_Compostar_SONANDO:
+		{
+			react_Compostar_SONANDO(handle);
+			break;
+		}
+		case Compostera_Compostar_MEZCLANDO:
+		{
+			react_Compostar_MEZCLANDO(handle);
 			break;
 		}
 		default:
@@ -528,7 +549,9 @@ void compostera_exit(Compostera* handle)
 	exseq_TEC2(handle);
 	exseq_TEC3(handle);
 	exseq_TEC4(handle);
-	exseq_activity(handle);
+	exseq_Humedad(handle);
+	exseq_Temperatura(handle);
+	exseq_Compostar(handle);
 }
 
 sc_boolean compostera_isActive(const Compostera* handle)
@@ -678,36 +701,40 @@ sc_boolean compostera_isStateActive(const Compostera* handle, ComposteraStates s
 			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_TEC4_VALIDACION_N_O] == Compostera_TEC4_VALIDACION_N_O
 			);
 			break;
-		case Compostera_activity_ESPERANDO :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_ESPERANDO] == Compostera_activity_ESPERANDO
+		case Compostera_Humedad_HUMEDECIENDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_HUMEDAD_HUMEDECIENDO] == Compostera_Humedad_HUMEDECIENDO
 			);
 			break;
-		case Compostera_activity_ENFRIANDO :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_ENFRIANDO] == Compostera_activity_ENFRIANDO
+		case Compostera_Humedad_DESHUMEDECIENDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_HUMEDAD_DESHUMEDECIENDO] == Compostera_Humedad_DESHUMEDECIENDO
 			);
 			break;
-		case Compostera_activity_HUMEDECIENDO :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_HUMEDECIENDO] == Compostera_activity_HUMEDECIENDO
+		case Compostera_Humedad_ESPERANDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_HUMEDAD_ESPERANDO] == Compostera_Humedad_ESPERANDO
 			);
 			break;
-		case Compostera_activity_DESHUMEDECIENDO :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_DESHUMEDECIENDO] == Compostera_activity_DESHUMEDECIENDO
+		case Compostera_Temperatura_ENFRIANDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_TEMPERATURA_ENFRIANDO] == Compostera_Temperatura_ENFRIANDO
 			);
 			break;
-		case Compostera_activity_COMPOSTANDO :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO] >= Compostera_activity_COMPOSTANDO
-				&& handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO] <= Compostera_activity_COMPOSTANDO_r1_MEZCLANDO);
-			break;
-		case Compostera_activity_COMPOSTANDO_r1_RELLENANDO :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO_R1_RELLENANDO] == Compostera_activity_COMPOSTANDO_r1_RELLENANDO
+		case Compostera_Temperatura_ESPERANDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_TEMPERATURA_ESPERANDO] == Compostera_Temperatura_ESPERANDO
 			);
 			break;
-		case Compostera_activity_COMPOSTANDO_r1_SONANDO :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO_R1_SONANDO] == Compostera_activity_COMPOSTANDO_r1_SONANDO
+		case Compostera_Compostar_RELLENANDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_COMPOSTAR_RELLENANDO] == Compostera_Compostar_RELLENANDO
 			);
 			break;
-		case Compostera_activity_COMPOSTANDO_r1_MEZCLANDO :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO_R1_MEZCLANDO] == Compostera_activity_COMPOSTANDO_r1_MEZCLANDO
+		case Compostera_Compostar_ESPERANDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_COMPOSTAR_ESPERANDO] == Compostera_Compostar_ESPERANDO
+			);
+			break;
+		case Compostera_Compostar_SONANDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_COMPOSTAR_SONANDO] == Compostera_Compostar_SONANDO
+			);
+			break;
+		case Compostera_Compostar_MEZCLANDO :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_COMPOSTAR_MEZCLANDO] == Compostera_Compostar_MEZCLANDO
 			);
 			break;
 		default:
@@ -742,8 +769,8 @@ static void clearInEvents(Compostera* handle)
 	handle->timeEvents.compostera_TEC3_DEBOUNCE_N_O_tev0_raised = bool_false;
 	handle->timeEvents.compostera_TEC4_DEBOUNCE_O_tev0_raised = bool_false;
 	handle->timeEvents.compostera_TEC4_DEBOUNCE_N_O_tev0_raised = bool_false;
-	handle->timeEvents.compostera_activity_COMPOSTANDO_r1_RELLENANDO_tev0_raised = bool_false;
-	handle->timeEvents.compostera_activity_COMPOSTANDO_r1_MEZCLANDO_tev0_raised = bool_false;
+	handle->timeEvents.compostera_Compostar_RELLENANDO_tev0_raised = bool_false;
+	handle->timeEvents.compostera_Compostar_MEZCLANDO_tev0_raised = bool_false;
 }
 
 static void clearOutEvents(Compostera* handle)
@@ -1055,74 +1082,79 @@ static sc_boolean check_TEC4_VALIDACION_N_O_tr1_tr1(const Compostera* handle)
 	return handle->iface.evTEC4Oprimido_raised;
 }
 
-static sc_boolean check_activity_ESPERANDO_tr0_tr0(const Compostera* handle)
+static sc_boolean check_Humedad_HUMEDECIENDO_tr0_tr0(const Compostera* handle)
 {
-	return handle->internal.siTemperaturaMayor60_raised;
+	return handle->internal.siHumedadEstable_raised;
 }
 
-static sc_boolean check_activity_ESPERANDO_tr1_tr1(const Compostera* handle)
+static sc_boolean check_Humedad_HUMEDECIENDO_tr1_tr1(const Compostera* handle)
 {
-	return handle->internal.siHumedadMenor40_raised;
+	return handle->internal.siAberturaTapa_raised;
 }
 
-static sc_boolean check_activity_ESPERANDO_tr2_tr2(const Compostera* handle)
+static sc_boolean check_Humedad_DESHUMEDECIENDO_tr0_tr0(const Compostera* handle)
+{
+	return handle->internal.siHumedadEstable_raised;
+}
+
+static sc_boolean check_Humedad_DESHUMEDECIENDO_tr1_tr1(const Compostera* handle)
+{
+	return handle->internal.siAberturaTapa_raised;
+}
+
+static sc_boolean check_Humedad_ESPERANDO_tr0_tr0(const Compostera* handle)
 {
 	return handle->internal.siHumedadMayor60_raised;
 }
 
-static sc_boolean check_activity_ESPERANDO_tr3_tr3(const Compostera* handle)
+static sc_boolean check_Humedad_ESPERANDO_tr1_tr1(const Compostera* handle)
 {
-	return handle->internal.siAberturaTapa_raised;
+	return handle->internal.siHumedadMenor40_raised;
 }
 
-static sc_boolean check_activity_ENFRIANDO_tr0_tr0(const Compostera* handle)
+static sc_boolean check_Temperatura_ENFRIANDO_tr0_tr0(const Compostera* handle)
 {
 	return handle->internal.siTemperaturaEstable_raised;
 }
 
-static sc_boolean check_activity_ENFRIANDO_tr1_tr1(const Compostera* handle)
+static sc_boolean check_Temperatura_ENFRIANDO_tr1_tr1(const Compostera* handle)
 {
 	return handle->internal.siAberturaTapa_raised;
 }
 
-static sc_boolean check_activity_HUMEDECIENDO_tr0_tr0(const Compostera* handle)
+static sc_boolean check_Temperatura_ESPERANDO_tr0_tr0(const Compostera* handle)
 {
-	return handle->internal.siHumedadEstable_raised;
+	return handle->internal.siTemperaturaMayor60_raised;
 }
 
-static sc_boolean check_activity_HUMEDECIENDO_tr1_tr1(const Compostera* handle)
+static sc_boolean check_Compostar_RELLENANDO_tr0_tr0(const Compostera* handle)
 {
-	return handle->internal.siAberturaTapa_raised;
+	return handle->timeEvents.compostera_Compostar_RELLENANDO_tev0_raised;
 }
 
-static sc_boolean check_activity_DESHUMEDECIENDO_tr0_tr0(const Compostera* handle)
-{
-	return handle->internal.siHumedadEstable_raised;
-}
-
-static sc_boolean check_activity_DESHUMEDECIENDO_tr1_tr1(const Compostera* handle)
-{
-	return handle->internal.siAberturaTapa_raised;
-}
-
-static sc_boolean check_activity_COMPOSTANDO_r1_RELLENANDO_tr0_tr0(const Compostera* handle)
-{
-	return handle->timeEvents.compostera_activity_COMPOSTANDO_r1_RELLENANDO_tev0_raised;
-}
-
-static sc_boolean check_activity_COMPOSTANDO_r1_RELLENANDO_tr1_tr1(const Compostera* handle)
+static sc_boolean check_Compostar_RELLENANDO_tr1_tr1(const Compostera* handle)
 {
 	return handle->internal.siCerradoTapa_raised;
 }
 
-static sc_boolean check_activity_COMPOSTANDO_r1_SONANDO_tr0_tr0(const Compostera* handle)
+static sc_boolean check_Compostar_ESPERANDO_tr0_tr0(const Compostera* handle)
+{
+	return handle->internal.siAberturaTapa_raised;
+}
+
+static sc_boolean check_Compostar_SONANDO_tr0_tr0(const Compostera* handle)
 {
 	return handle->internal.siCerradoTapa_raised;
 }
 
-static sc_boolean check_activity_COMPOSTANDO_r1_MEZCLANDO_tr0_tr0(const Compostera* handle)
+static sc_boolean check_Compostar_MEZCLANDO_tr0_tr0(const Compostera* handle)
 {
-	return handle->timeEvents.compostera_activity_COMPOSTANDO_r1_MEZCLANDO_tev0_raised;
+	return handle->timeEvents.compostera_Compostar_MEZCLANDO_tev0_raised;
+}
+
+static sc_boolean check_Compostar_MEZCLANDO_tr1_tr1(const Compostera* handle)
+{
+	return handle->internal.siAberturaTapa_raised;
 }
 
 static void effect_TEC1_DEBOUNCE_O_tr0(Compostera* handle)
@@ -1389,97 +1421,94 @@ static void effect_TEC4_VALIDACION_N_O_tr1(Compostera* handle)
 	enseq_TEC4_OPRIMIDO_default(handle);
 }
 
-static void effect_activity_ESPERANDO_tr0(Compostera* handle)
+static void effect_Humedad_HUMEDECIENDO_tr0(Compostera* handle)
 {
-	exseq_activity_ESPERANDO(handle);
-	enseq_activity_ENFRIANDO_default(handle);
+	exseq_Humedad_HUMEDECIENDO(handle);
+	enseq_Humedad_ESPERANDO_default(handle);
 }
 
-static void effect_activity_ESPERANDO_tr1(Compostera* handle)
+static void effect_Humedad_HUMEDECIENDO_tr1(Compostera* handle)
 {
-	exseq_activity_ESPERANDO(handle);
-	enseq_activity_HUMEDECIENDO_default(handle);
+	exseq_Humedad_HUMEDECIENDO(handle);
+	enseq_Humedad_ESPERANDO_default(handle);
 }
 
-static void effect_activity_ESPERANDO_tr2(Compostera* handle)
+static void effect_Humedad_DESHUMEDECIENDO_tr0(Compostera* handle)
 {
-	exseq_activity_ESPERANDO(handle);
-	enseq_activity_DESHUMEDECIENDO_default(handle);
+	exseq_Humedad_DESHUMEDECIENDO(handle);
+	enseq_Humedad_ESPERANDO_default(handle);
 }
 
-static void effect_activity_ESPERANDO_tr3(Compostera* handle)
+static void effect_Humedad_DESHUMEDECIENDO_tr1(Compostera* handle)
 {
-	exseq_activity_ESPERANDO(handle);
-	enseq_activity_COMPOSTANDO_default(handle);
+	exseq_Humedad_DESHUMEDECIENDO(handle);
+	enseq_Humedad_ESPERANDO_default(handle);
 }
 
-static void effect_activity_ENFRIANDO_tr0(Compostera* handle)
+static void effect_Humedad_ESPERANDO_tr0(Compostera* handle)
 {
-	exseq_activity_ENFRIANDO(handle);
-	enseq_activity_ESPERANDO_default(handle);
+	exseq_Humedad_ESPERANDO(handle);
+	enseq_Humedad_DESHUMEDECIENDO_default(handle);
 }
 
-static void effect_activity_ENFRIANDO_tr1(Compostera* handle)
+static void effect_Humedad_ESPERANDO_tr1(Compostera* handle)
 {
-	exseq_activity_ENFRIANDO(handle);
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDR, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-	enseq_activity_COMPOSTANDO_default(handle);
+	exseq_Humedad_ESPERANDO(handle);
+	enseq_Humedad_HUMEDECIENDO_default(handle);
 }
 
-static void effect_activity_HUMEDECIENDO_tr0(Compostera* handle)
+static void effect_Temperatura_ENFRIANDO_tr0(Compostera* handle)
 {
-	exseq_activity_HUMEDECIENDO(handle);
-	enseq_activity_ESPERANDO_default(handle);
+	exseq_Temperatura_ENFRIANDO(handle);
+	enseq_Temperatura_ESPERANDO_default(handle);
 }
 
-static void effect_activity_HUMEDECIENDO_tr1(Compostera* handle)
+static void effect_Temperatura_ENFRIANDO_tr1(Compostera* handle)
 {
-	exseq_activity_HUMEDECIENDO(handle);
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDG, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-	enseq_activity_COMPOSTANDO_default(handle);
+	exseq_Temperatura_ENFRIANDO(handle);
+	enseq_Temperatura_ESPERANDO_default(handle);
 }
 
-static void effect_activity_DESHUMEDECIENDO_tr0(Compostera* handle)
+static void effect_Temperatura_ESPERANDO_tr0(Compostera* handle)
 {
-	exseq_activity_DESHUMEDECIENDO(handle);
-	enseq_activity_ESPERANDO_default(handle);
+	exseq_Temperatura_ESPERANDO(handle);
+	enseq_Temperatura_ENFRIANDO_default(handle);
 }
 
-static void effect_activity_DESHUMEDECIENDO_tr1(Compostera* handle)
+static void effect_Compostar_RELLENANDO_tr0(Compostera* handle)
 {
-	exseq_activity_DESHUMEDECIENDO(handle);
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDB, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-	enseq_activity_COMPOSTANDO_default(handle);
+	exseq_Compostar_RELLENANDO(handle);
+	enseq_Compostar_SONANDO_default(handle);
 }
 
-static void effect_activity_COMPOSTANDO_tr0(Compostera* handle)
+static void effect_Compostar_RELLENANDO_tr1(Compostera* handle)
 {
-	exseq_activity_COMPOSTANDO(handle);
-	enseq_activity_ESPERANDO_default(handle);
+	exseq_Compostar_RELLENANDO(handle);
+	enseq_Compostar_MEZCLANDO_default(handle);
 }
 
-static void effect_activity_COMPOSTANDO_r1_RELLENANDO_tr0(Compostera* handle)
+static void effect_Compostar_ESPERANDO_tr0(Compostera* handle)
 {
-	exseq_activity_COMPOSTANDO_r1_RELLENANDO(handle);
-	enseq_activity_COMPOSTANDO_r1_SONANDO_default(handle);
+	exseq_Compostar_ESPERANDO(handle);
+	enseq_Compostar_RELLENANDO_default(handle);
 }
 
-static void effect_activity_COMPOSTANDO_r1_RELLENANDO_tr1(Compostera* handle)
+static void effect_Compostar_SONANDO_tr0(Compostera* handle)
 {
-	exseq_activity_COMPOSTANDO_r1_RELLENANDO(handle);
-	enseq_activity_COMPOSTANDO_r1_MEZCLANDO_default(handle);
+	exseq_Compostar_SONANDO(handle);
+	enseq_Compostar_MEZCLANDO_default(handle);
 }
 
-static void effect_activity_COMPOSTANDO_r1_SONANDO_tr0(Compostera* handle)
+static void effect_Compostar_MEZCLANDO_tr0(Compostera* handle)
 {
-	exseq_activity_COMPOSTANDO_r1_SONANDO(handle);
-	enseq_activity_COMPOSTANDO_r1_MEZCLANDO_default(handle);
+	exseq_Compostar_MEZCLANDO(handle);
+	enseq_Compostar_ESPERANDO_default(handle);
 }
 
-static void effect_activity_COMPOSTANDO_r1_MEZCLANDO_tr0(Compostera* handle)
+static void effect_Compostar_MEZCLANDO_tr1(Compostera* handle)
 {
-	exseq_activity_COMPOSTANDO_r1_MEZCLANDO(handle);
-	react_activity_COMPOSTANDO_r1__exit_Default(handle);
+	exseq_Compostar_MEZCLANDO(handle);
+	enseq_Compostar_RELLENANDO_default(handle);
 }
 
 /* Entry action for state 'DEBOUNCE_O'. */
@@ -1594,49 +1623,60 @@ static void enact_TEC4_DEBOUNCE_N_O(Compostera* handle)
 	compostera_setTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_TEC4_DEBOUNCE_N_O_tev0_raised) , 100, bool_false);
 }
 
-/* Entry action for state 'ESPERANDO'. */
-static void enact_activity_ESPERANDO(Compostera* handle)
-{
-	/* Entry action for state 'ESPERANDO'. */
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDR, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDG, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDB, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED1, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED2, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED3, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
-}
-
-/* Entry action for state 'ENFRIANDO'. */
-static void enact_activity_ENFRIANDO(Compostera* handle)
-{
-	/* Entry action for state 'ENFRIANDO'. */
-	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDR, COMPOSTERA_COMPOSTERAIFACE_LED_ON);
-}
-
 /* Entry action for state 'HUMEDECIENDO'. */
-static void enact_activity_HUMEDECIENDO(Compostera* handle)
+static void enact_Humedad_HUMEDECIENDO(Compostera* handle)
 {
 	/* Entry action for state 'HUMEDECIENDO'. */
 	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDG, COMPOSTERA_COMPOSTERAIFACE_LED_ON);
 }
 
 /* Entry action for state 'DESHUMEDECIENDO'. */
-static void enact_activity_DESHUMEDECIENDO(Compostera* handle)
+static void enact_Humedad_DESHUMEDECIENDO(Compostera* handle)
 {
 	/* Entry action for state 'DESHUMEDECIENDO'. */
 	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDB, COMPOSTERA_COMPOSTERAIFACE_LED_ON);
 }
 
+/* Entry action for state 'ESPERANDO'. */
+static void enact_Humedad_ESPERANDO(Compostera* handle)
+{
+	/* Entry action for state 'ESPERANDO'. */
+	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDB, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
+	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDG, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
+}
+
+/* Entry action for state 'ENFRIANDO'. */
+static void enact_Temperatura_ENFRIANDO(Compostera* handle)
+{
+	/* Entry action for state 'ENFRIANDO'. */
+	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDR, COMPOSTERA_COMPOSTERAIFACE_LED_ON);
+}
+
+/* Entry action for state 'ESPERANDO'. */
+static void enact_Temperatura_ESPERANDO(Compostera* handle)
+{
+	/* Entry action for state 'ESPERANDO'. */
+	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LEDR, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
+}
+
 /* Entry action for state 'RELLENANDO'. */
-static void enact_activity_COMPOSTANDO_r1_RELLENANDO(Compostera* handle)
+static void enact_Compostar_RELLENANDO(Compostera* handle)
 {
 	/* Entry action for state 'RELLENANDO'. */
-	compostera_setTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_activity_COMPOSTANDO_r1_RELLENANDO_tev0_raised) , 1 * 1000, bool_false);
+	compostera_setTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_Compostar_RELLENANDO_tev0_raised) , 1 * 1000, bool_false);
 	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED3, COMPOSTERA_COMPOSTERAIFACE_LED_ON);
+	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED2, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
+}
+
+/* Entry action for state 'ESPERANDO'. */
+static void enact_Compostar_ESPERANDO(Compostera* handle)
+{
+	/* Entry action for state 'ESPERANDO'. */
+	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED2, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
 }
 
 /* Entry action for state 'SONANDO'. */
-static void enact_activity_COMPOSTANDO_r1_SONANDO(Compostera* handle)
+static void enact_Compostar_SONANDO(Compostera* handle)
 {
 	/* Entry action for state 'SONANDO'. */
 	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED1, COMPOSTERA_COMPOSTERAIFACE_LED_ON);
@@ -1644,10 +1684,10 @@ static void enact_activity_COMPOSTANDO_r1_SONANDO(Compostera* handle)
 }
 
 /* Entry action for state 'MEZCLANDO'. */
-static void enact_activity_COMPOSTANDO_r1_MEZCLANDO(Compostera* handle)
+static void enact_Compostar_MEZCLANDO(Compostera* handle)
 {
 	/* Entry action for state 'MEZCLANDO'. */
-	compostera_setTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_activity_COMPOSTANDO_r1_MEZCLANDO_tev0_raised) , 2 * 1000, bool_false);
+	compostera_setTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_Compostar_MEZCLANDO_tev0_raised) , 2 * 1000, bool_false);
 	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED2, COMPOSTERA_COMPOSTERAIFACE_LED_ON);
 	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED3, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
 	composteraIface_opLED(handle, COMPOSTERA_COMPOSTERAIFACE_LED1, COMPOSTERA_COMPOSTERAIFACE_LED_OFF);
@@ -1710,17 +1750,17 @@ static void exact_TEC4_DEBOUNCE_N_O(Compostera* handle)
 }
 
 /* Exit action for state 'RELLENANDO'. */
-static void exact_activity_COMPOSTANDO_r1_RELLENANDO(Compostera* handle)
+static void exact_Compostar_RELLENANDO(Compostera* handle)
 {
 	/* Exit action for state 'RELLENANDO'. */
-	compostera_unsetTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_activity_COMPOSTANDO_r1_RELLENANDO_tev0_raised) );		
+	compostera_unsetTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_Compostar_RELLENANDO_tev0_raised) );		
 }
 
 /* Exit action for state 'MEZCLANDO'. */
-static void exact_activity_COMPOSTANDO_r1_MEZCLANDO(Compostera* handle)
+static void exact_Compostar_MEZCLANDO(Compostera* handle)
 {
 	/* Exit action for state 'MEZCLANDO'. */
-	compostera_unsetTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_activity_COMPOSTANDO_r1_MEZCLANDO_tev0_raised) );		
+	compostera_unsetTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_Compostar_MEZCLANDO_tev0_raised) );		
 }
 
 /* 'default' enter sequence for state DEBOUNCE_O */
@@ -1963,74 +2003,85 @@ static void enseq_TEC4_VALIDACION_N_O_default(Compostera* handle)
 	handle->stateConfVectorPosition = 3;
 }
 
-/* 'default' enter sequence for state ESPERANDO */
-static void enseq_activity_ESPERANDO_default(Compostera* handle)
-{
-	/* 'default' enter sequence for state ESPERANDO */
-	enact_activity_ESPERANDO(handle);
-	handle->stateConfVector[4] = Compostera_activity_ESPERANDO;
-	handle->stateConfVectorPosition = 4;
-}
-
-/* 'default' enter sequence for state ENFRIANDO */
-static void enseq_activity_ENFRIANDO_default(Compostera* handle)
-{
-	/* 'default' enter sequence for state ENFRIANDO */
-	enact_activity_ENFRIANDO(handle);
-	handle->stateConfVector[4] = Compostera_activity_ENFRIANDO;
-	handle->stateConfVectorPosition = 4;
-}
-
 /* 'default' enter sequence for state HUMEDECIENDO */
-static void enseq_activity_HUMEDECIENDO_default(Compostera* handle)
+static void enseq_Humedad_HUMEDECIENDO_default(Compostera* handle)
 {
 	/* 'default' enter sequence for state HUMEDECIENDO */
-	enact_activity_HUMEDECIENDO(handle);
-	handle->stateConfVector[4] = Compostera_activity_HUMEDECIENDO;
+	enact_Humedad_HUMEDECIENDO(handle);
+	handle->stateConfVector[4] = Compostera_Humedad_HUMEDECIENDO;
 	handle->stateConfVectorPosition = 4;
 }
 
 /* 'default' enter sequence for state DESHUMEDECIENDO */
-static void enseq_activity_DESHUMEDECIENDO_default(Compostera* handle)
+static void enseq_Humedad_DESHUMEDECIENDO_default(Compostera* handle)
 {
 	/* 'default' enter sequence for state DESHUMEDECIENDO */
-	enact_activity_DESHUMEDECIENDO(handle);
-	handle->stateConfVector[4] = Compostera_activity_DESHUMEDECIENDO;
+	enact_Humedad_DESHUMEDECIENDO(handle);
+	handle->stateConfVector[4] = Compostera_Humedad_DESHUMEDECIENDO;
 	handle->stateConfVectorPosition = 4;
 }
 
-/* 'default' enter sequence for state COMPOSTANDO */
-static void enseq_activity_COMPOSTANDO_default(Compostera* handle)
+/* 'default' enter sequence for state ESPERANDO */
+static void enseq_Humedad_ESPERANDO_default(Compostera* handle)
 {
-	/* 'default' enter sequence for state COMPOSTANDO */
-	enseq_activity_COMPOSTANDO_r1_default(handle);
+	/* 'default' enter sequence for state ESPERANDO */
+	enact_Humedad_ESPERANDO(handle);
+	handle->stateConfVector[4] = Compostera_Humedad_ESPERANDO;
+	handle->stateConfVectorPosition = 4;
+}
+
+/* 'default' enter sequence for state ENFRIANDO */
+static void enseq_Temperatura_ENFRIANDO_default(Compostera* handle)
+{
+	/* 'default' enter sequence for state ENFRIANDO */
+	enact_Temperatura_ENFRIANDO(handle);
+	handle->stateConfVector[5] = Compostera_Temperatura_ENFRIANDO;
+	handle->stateConfVectorPosition = 5;
+}
+
+/* 'default' enter sequence for state ESPERANDO */
+static void enseq_Temperatura_ESPERANDO_default(Compostera* handle)
+{
+	/* 'default' enter sequence for state ESPERANDO */
+	enact_Temperatura_ESPERANDO(handle);
+	handle->stateConfVector[5] = Compostera_Temperatura_ESPERANDO;
+	handle->stateConfVectorPosition = 5;
 }
 
 /* 'default' enter sequence for state RELLENANDO */
-static void enseq_activity_COMPOSTANDO_r1_RELLENANDO_default(Compostera* handle)
+static void enseq_Compostar_RELLENANDO_default(Compostera* handle)
 {
 	/* 'default' enter sequence for state RELLENANDO */
-	enact_activity_COMPOSTANDO_r1_RELLENANDO(handle);
-	handle->stateConfVector[4] = Compostera_activity_COMPOSTANDO_r1_RELLENANDO;
-	handle->stateConfVectorPosition = 4;
+	enact_Compostar_RELLENANDO(handle);
+	handle->stateConfVector[6] = Compostera_Compostar_RELLENANDO;
+	handle->stateConfVectorPosition = 6;
+}
+
+/* 'default' enter sequence for state ESPERANDO */
+static void enseq_Compostar_ESPERANDO_default(Compostera* handle)
+{
+	/* 'default' enter sequence for state ESPERANDO */
+	enact_Compostar_ESPERANDO(handle);
+	handle->stateConfVector[6] = Compostera_Compostar_ESPERANDO;
+	handle->stateConfVectorPosition = 6;
 }
 
 /* 'default' enter sequence for state SONANDO */
-static void enseq_activity_COMPOSTANDO_r1_SONANDO_default(Compostera* handle)
+static void enseq_Compostar_SONANDO_default(Compostera* handle)
 {
 	/* 'default' enter sequence for state SONANDO */
-	enact_activity_COMPOSTANDO_r1_SONANDO(handle);
-	handle->stateConfVector[4] = Compostera_activity_COMPOSTANDO_r1_SONANDO;
-	handle->stateConfVectorPosition = 4;
+	enact_Compostar_SONANDO(handle);
+	handle->stateConfVector[6] = Compostera_Compostar_SONANDO;
+	handle->stateConfVectorPosition = 6;
 }
 
 /* 'default' enter sequence for state MEZCLANDO */
-static void enseq_activity_COMPOSTANDO_r1_MEZCLANDO_default(Compostera* handle)
+static void enseq_Compostar_MEZCLANDO_default(Compostera* handle)
 {
 	/* 'default' enter sequence for state MEZCLANDO */
-	enact_activity_COMPOSTANDO_r1_MEZCLANDO(handle);
-	handle->stateConfVector[4] = Compostera_activity_COMPOSTANDO_r1_MEZCLANDO;
-	handle->stateConfVectorPosition = 4;
+	enact_Compostar_MEZCLANDO(handle);
+	handle->stateConfVector[6] = Compostera_Compostar_MEZCLANDO;
+	handle->stateConfVectorPosition = 6;
 }
 
 /* 'default' enter sequence for region TEC1 */
@@ -2061,18 +2112,25 @@ static void enseq_TEC4_default(Compostera* handle)
 	react_TEC4__entry_Default(handle);
 }
 
-/* 'default' enter sequence for region activity */
-static void enseq_activity_default(Compostera* handle)
+/* 'default' enter sequence for region Humedad */
+static void enseq_Humedad_default(Compostera* handle)
 {
-	/* 'default' enter sequence for region activity */
-	react_activity__entry_Default(handle);
+	/* 'default' enter sequence for region Humedad */
+	react_Humedad__entry_Default(handle);
 }
 
-/* 'default' enter sequence for region r1 */
-static void enseq_activity_COMPOSTANDO_r1_default(Compostera* handle)
+/* 'default' enter sequence for region Temperatura */
+static void enseq_Temperatura_default(Compostera* handle)
 {
-	/* 'default' enter sequence for region r1 */
-	react_activity_COMPOSTANDO_r1__entry_Default(handle);
+	/* 'default' enter sequence for region Temperatura */
+	react_Temperatura__entry_Default(handle);
+}
+
+/* 'default' enter sequence for region Compostar */
+static void enseq_Compostar_default(Compostera* handle)
+{
+	/* 'default' enter sequence for region Compostar */
+	react_Compostar__entry_Default(handle);
 }
 
 /* Default exit sequence for state DEBOUNCE_O */
@@ -2307,24 +2365,8 @@ static void exseq_TEC4_VALIDACION_N_O(Compostera* handle)
 	handle->stateConfVectorPosition = 3;
 }
 
-/* Default exit sequence for state ESPERANDO */
-static void exseq_activity_ESPERANDO(Compostera* handle)
-{
-	/* Default exit sequence for state ESPERANDO */
-	handle->stateConfVector[4] = Compostera_last_state;
-	handle->stateConfVectorPosition = 4;
-}
-
-/* Default exit sequence for state ENFRIANDO */
-static void exseq_activity_ENFRIANDO(Compostera* handle)
-{
-	/* Default exit sequence for state ENFRIANDO */
-	handle->stateConfVector[4] = Compostera_last_state;
-	handle->stateConfVectorPosition = 4;
-}
-
 /* Default exit sequence for state HUMEDECIENDO */
-static void exseq_activity_HUMEDECIENDO(Compostera* handle)
+static void exseq_Humedad_HUMEDECIENDO(Compostera* handle)
 {
 	/* Default exit sequence for state HUMEDECIENDO */
 	handle->stateConfVector[4] = Compostera_last_state;
@@ -2332,44 +2374,69 @@ static void exseq_activity_HUMEDECIENDO(Compostera* handle)
 }
 
 /* Default exit sequence for state DESHUMEDECIENDO */
-static void exseq_activity_DESHUMEDECIENDO(Compostera* handle)
+static void exseq_Humedad_DESHUMEDECIENDO(Compostera* handle)
 {
 	/* Default exit sequence for state DESHUMEDECIENDO */
 	handle->stateConfVector[4] = Compostera_last_state;
 	handle->stateConfVectorPosition = 4;
 }
 
-/* Default exit sequence for state COMPOSTANDO */
-static void exseq_activity_COMPOSTANDO(Compostera* handle)
+/* Default exit sequence for state ESPERANDO */
+static void exseq_Humedad_ESPERANDO(Compostera* handle)
 {
-	/* Default exit sequence for state COMPOSTANDO */
-	exseq_activity_COMPOSTANDO_r1(handle);
+	/* Default exit sequence for state ESPERANDO */
+	handle->stateConfVector[4] = Compostera_last_state;
+	handle->stateConfVectorPosition = 4;
+}
+
+/* Default exit sequence for state ENFRIANDO */
+static void exseq_Temperatura_ENFRIANDO(Compostera* handle)
+{
+	/* Default exit sequence for state ENFRIANDO */
+	handle->stateConfVector[5] = Compostera_last_state;
+	handle->stateConfVectorPosition = 5;
+}
+
+/* Default exit sequence for state ESPERANDO */
+static void exseq_Temperatura_ESPERANDO(Compostera* handle)
+{
+	/* Default exit sequence for state ESPERANDO */
+	handle->stateConfVector[5] = Compostera_last_state;
+	handle->stateConfVectorPosition = 5;
 }
 
 /* Default exit sequence for state RELLENANDO */
-static void exseq_activity_COMPOSTANDO_r1_RELLENANDO(Compostera* handle)
+static void exseq_Compostar_RELLENANDO(Compostera* handle)
 {
 	/* Default exit sequence for state RELLENANDO */
-	handle->stateConfVector[4] = Compostera_last_state;
-	handle->stateConfVectorPosition = 4;
-	exact_activity_COMPOSTANDO_r1_RELLENANDO(handle);
+	handle->stateConfVector[6] = Compostera_last_state;
+	handle->stateConfVectorPosition = 6;
+	exact_Compostar_RELLENANDO(handle);
+}
+
+/* Default exit sequence for state ESPERANDO */
+static void exseq_Compostar_ESPERANDO(Compostera* handle)
+{
+	/* Default exit sequence for state ESPERANDO */
+	handle->stateConfVector[6] = Compostera_last_state;
+	handle->stateConfVectorPosition = 6;
 }
 
 /* Default exit sequence for state SONANDO */
-static void exseq_activity_COMPOSTANDO_r1_SONANDO(Compostera* handle)
+static void exseq_Compostar_SONANDO(Compostera* handle)
 {
 	/* Default exit sequence for state SONANDO */
-	handle->stateConfVector[4] = Compostera_last_state;
-	handle->stateConfVectorPosition = 4;
+	handle->stateConfVector[6] = Compostera_last_state;
+	handle->stateConfVectorPosition = 6;
 }
 
 /* Default exit sequence for state MEZCLANDO */
-static void exseq_activity_COMPOSTANDO_r1_MEZCLANDO(Compostera* handle)
+static void exseq_Compostar_MEZCLANDO(Compostera* handle)
 {
 	/* Default exit sequence for state MEZCLANDO */
-	handle->stateConfVector[4] = Compostera_last_state;
-	handle->stateConfVectorPosition = 4;
-	exact_activity_COMPOSTANDO_r1_MEZCLANDO(handle);
+	handle->stateConfVector[6] = Compostera_last_state;
+	handle->stateConfVectorPosition = 6;
+	exact_Compostar_MEZCLANDO(handle);
 }
 
 /* Default exit sequence for region TEC1 */
@@ -2556,72 +2623,78 @@ static void exseq_TEC4(Compostera* handle)
 	}
 }
 
-/* Default exit sequence for region activity */
-static void exseq_activity(Compostera* handle)
+/* Default exit sequence for region Humedad */
+static void exseq_Humedad(Compostera* handle)
 {
-	/* Default exit sequence for region activity */
-	/* Handle exit of all possible states (of compostera.activity) at position 4... */
+	/* Default exit sequence for region Humedad */
+	/* Handle exit of all possible states (of compostera.Humedad) at position 4... */
 	switch(handle->stateConfVector[ 4 ])
 	{
-		case Compostera_activity_ESPERANDO :
+		case Compostera_Humedad_HUMEDECIENDO :
 		{
-			exseq_activity_ESPERANDO(handle);
+			exseq_Humedad_HUMEDECIENDO(handle);
 			break;
 		}
-		case Compostera_activity_ENFRIANDO :
+		case Compostera_Humedad_DESHUMEDECIENDO :
 		{
-			exseq_activity_ENFRIANDO(handle);
+			exseq_Humedad_DESHUMEDECIENDO(handle);
 			break;
 		}
-		case Compostera_activity_HUMEDECIENDO :
+		case Compostera_Humedad_ESPERANDO :
 		{
-			exseq_activity_HUMEDECIENDO(handle);
-			break;
-		}
-		case Compostera_activity_DESHUMEDECIENDO :
-		{
-			exseq_activity_DESHUMEDECIENDO(handle);
-			break;
-		}
-		case Compostera_activity_COMPOSTANDO_r1_RELLENANDO :
-		{
-			exseq_activity_COMPOSTANDO_r1_RELLENANDO(handle);
-			break;
-		}
-		case Compostera_activity_COMPOSTANDO_r1_SONANDO :
-		{
-			exseq_activity_COMPOSTANDO_r1_SONANDO(handle);
-			break;
-		}
-		case Compostera_activity_COMPOSTANDO_r1_MEZCLANDO :
-		{
-			exseq_activity_COMPOSTANDO_r1_MEZCLANDO(handle);
+			exseq_Humedad_ESPERANDO(handle);
 			break;
 		}
 		default: break;
 	}
 }
 
-/* Default exit sequence for region r1 */
-static void exseq_activity_COMPOSTANDO_r1(Compostera* handle)
+/* Default exit sequence for region Temperatura */
+static void exseq_Temperatura(Compostera* handle)
 {
-	/* Default exit sequence for region r1 */
-	/* Handle exit of all possible states (of compostera.activity.COMPOSTANDO.r1) at position 4... */
-	switch(handle->stateConfVector[ 4 ])
+	/* Default exit sequence for region Temperatura */
+	/* Handle exit of all possible states (of compostera.Temperatura) at position 5... */
+	switch(handle->stateConfVector[ 5 ])
 	{
-		case Compostera_activity_COMPOSTANDO_r1_RELLENANDO :
+		case Compostera_Temperatura_ENFRIANDO :
 		{
-			exseq_activity_COMPOSTANDO_r1_RELLENANDO(handle);
+			exseq_Temperatura_ENFRIANDO(handle);
 			break;
 		}
-		case Compostera_activity_COMPOSTANDO_r1_SONANDO :
+		case Compostera_Temperatura_ESPERANDO :
 		{
-			exseq_activity_COMPOSTANDO_r1_SONANDO(handle);
+			exseq_Temperatura_ESPERANDO(handle);
 			break;
 		}
-		case Compostera_activity_COMPOSTANDO_r1_MEZCLANDO :
+		default: break;
+	}
+}
+
+/* Default exit sequence for region Compostar */
+static void exseq_Compostar(Compostera* handle)
+{
+	/* Default exit sequence for region Compostar */
+	/* Handle exit of all possible states (of compostera.Compostar) at position 6... */
+	switch(handle->stateConfVector[ 6 ])
+	{
+		case Compostera_Compostar_RELLENANDO :
 		{
-			exseq_activity_COMPOSTANDO_r1_MEZCLANDO(handle);
+			exseq_Compostar_RELLENANDO(handle);
+			break;
+		}
+		case Compostera_Compostar_ESPERANDO :
+		{
+			exseq_Compostar_ESPERANDO(handle);
+			break;
+		}
+		case Compostera_Compostar_SONANDO :
+		{
+			exseq_Compostar_SONANDO(handle);
+			break;
+		}
+		case Compostera_Compostar_MEZCLANDO :
+		{
+			exseq_Compostar_MEZCLANDO(handle);
 			break;
 		}
 		default: break;
@@ -3004,116 +3077,130 @@ static void react_TEC4_VALIDACION_N_O(Compostera* handle)
 	}
 }
 
-/* The reactions of state ESPERANDO. */
-static void react_activity_ESPERANDO(Compostera* handle)
-{
-	/* The reactions of state ESPERANDO. */
-	if (check_activity_ESPERANDO_tr0_tr0(handle) == bool_true)
-	{ 
-		effect_activity_ESPERANDO_tr0(handle);
-	}  else
-	{
-		if (check_activity_ESPERANDO_tr1_tr1(handle) == bool_true)
-		{ 
-			effect_activity_ESPERANDO_tr1(handle);
-		}  else
-		{
-			if (check_activity_ESPERANDO_tr2_tr2(handle) == bool_true)
-			{ 
-				effect_activity_ESPERANDO_tr2(handle);
-			}  else
-			{
-				if (check_activity_ESPERANDO_tr3_tr3(handle) == bool_true)
-				{ 
-					effect_activity_ESPERANDO_tr3(handle);
-				} 
-			}
-		}
-	}
-}
-
-/* The reactions of state ENFRIANDO. */
-static void react_activity_ENFRIANDO(Compostera* handle)
-{
-	/* The reactions of state ENFRIANDO. */
-	if (check_activity_ENFRIANDO_tr0_tr0(handle) == bool_true)
-	{ 
-		effect_activity_ENFRIANDO_tr0(handle);
-	}  else
-	{
-		if (check_activity_ENFRIANDO_tr1_tr1(handle) == bool_true)
-		{ 
-			effect_activity_ENFRIANDO_tr1(handle);
-		} 
-	}
-}
-
 /* The reactions of state HUMEDECIENDO. */
-static void react_activity_HUMEDECIENDO(Compostera* handle)
+static void react_Humedad_HUMEDECIENDO(Compostera* handle)
 {
 	/* The reactions of state HUMEDECIENDO. */
-	if (check_activity_HUMEDECIENDO_tr0_tr0(handle) == bool_true)
+	if (check_Humedad_HUMEDECIENDO_tr0_tr0(handle) == bool_true)
 	{ 
-		effect_activity_HUMEDECIENDO_tr0(handle);
+		effect_Humedad_HUMEDECIENDO_tr0(handle);
 	}  else
 	{
-		if (check_activity_HUMEDECIENDO_tr1_tr1(handle) == bool_true)
+		if (check_Humedad_HUMEDECIENDO_tr1_tr1(handle) == bool_true)
 		{ 
-			effect_activity_HUMEDECIENDO_tr1(handle);
+			effect_Humedad_HUMEDECIENDO_tr1(handle);
 		} 
 	}
 }
 
 /* The reactions of state DESHUMEDECIENDO. */
-static void react_activity_DESHUMEDECIENDO(Compostera* handle)
+static void react_Humedad_DESHUMEDECIENDO(Compostera* handle)
 {
 	/* The reactions of state DESHUMEDECIENDO. */
-	if (check_activity_DESHUMEDECIENDO_tr0_tr0(handle) == bool_true)
+	if (check_Humedad_DESHUMEDECIENDO_tr0_tr0(handle) == bool_true)
 	{ 
-		effect_activity_DESHUMEDECIENDO_tr0(handle);
+		effect_Humedad_DESHUMEDECIENDO_tr0(handle);
 	}  else
 	{
-		if (check_activity_DESHUMEDECIENDO_tr1_tr1(handle) == bool_true)
+		if (check_Humedad_DESHUMEDECIENDO_tr1_tr1(handle) == bool_true)
 		{ 
-			effect_activity_DESHUMEDECIENDO_tr1(handle);
+			effect_Humedad_DESHUMEDECIENDO_tr1(handle);
 		} 
 	}
+}
+
+/* The reactions of state ESPERANDO. */
+static void react_Humedad_ESPERANDO(Compostera* handle)
+{
+	/* The reactions of state ESPERANDO. */
+	if (check_Humedad_ESPERANDO_tr0_tr0(handle) == bool_true)
+	{ 
+		effect_Humedad_ESPERANDO_tr0(handle);
+	}  else
+	{
+		if (check_Humedad_ESPERANDO_tr1_tr1(handle) == bool_true)
+		{ 
+			effect_Humedad_ESPERANDO_tr1(handle);
+		} 
+	}
+}
+
+/* The reactions of state ENFRIANDO. */
+static void react_Temperatura_ENFRIANDO(Compostera* handle)
+{
+	/* The reactions of state ENFRIANDO. */
+	if (check_Temperatura_ENFRIANDO_tr0_tr0(handle) == bool_true)
+	{ 
+		effect_Temperatura_ENFRIANDO_tr0(handle);
+	}  else
+	{
+		if (check_Temperatura_ENFRIANDO_tr1_tr1(handle) == bool_true)
+		{ 
+			effect_Temperatura_ENFRIANDO_tr1(handle);
+		} 
+	}
+}
+
+/* The reactions of state ESPERANDO. */
+static void react_Temperatura_ESPERANDO(Compostera* handle)
+{
+	/* The reactions of state ESPERANDO. */
+	if (check_Temperatura_ESPERANDO_tr0_tr0(handle) == bool_true)
+	{ 
+		effect_Temperatura_ESPERANDO_tr0(handle);
+	} 
 }
 
 /* The reactions of state RELLENANDO. */
-static void react_activity_COMPOSTANDO_r1_RELLENANDO(Compostera* handle)
+static void react_Compostar_RELLENANDO(Compostera* handle)
 {
 	/* The reactions of state RELLENANDO. */
-	if (check_activity_COMPOSTANDO_r1_RELLENANDO_tr0_tr0(handle) == bool_true)
+	if (check_Compostar_RELLENANDO_tr0_tr0(handle) == bool_true)
 	{ 
-		effect_activity_COMPOSTANDO_r1_RELLENANDO_tr0(handle);
+		effect_Compostar_RELLENANDO_tr0(handle);
 	}  else
 	{
-		if (check_activity_COMPOSTANDO_r1_RELLENANDO_tr1_tr1(handle) == bool_true)
+		if (check_Compostar_RELLENANDO_tr1_tr1(handle) == bool_true)
 		{ 
-			effect_activity_COMPOSTANDO_r1_RELLENANDO_tr1(handle);
+			effect_Compostar_RELLENANDO_tr1(handle);
 		} 
 	}
 }
 
+/* The reactions of state ESPERANDO. */
+static void react_Compostar_ESPERANDO(Compostera* handle)
+{
+	/* The reactions of state ESPERANDO. */
+	if (check_Compostar_ESPERANDO_tr0_tr0(handle) == bool_true)
+	{ 
+		effect_Compostar_ESPERANDO_tr0(handle);
+	} 
+}
+
 /* The reactions of state SONANDO. */
-static void react_activity_COMPOSTANDO_r1_SONANDO(Compostera* handle)
+static void react_Compostar_SONANDO(Compostera* handle)
 {
 	/* The reactions of state SONANDO. */
-	if (check_activity_COMPOSTANDO_r1_SONANDO_tr0_tr0(handle) == bool_true)
+	if (check_Compostar_SONANDO_tr0_tr0(handle) == bool_true)
 	{ 
-		effect_activity_COMPOSTANDO_r1_SONANDO_tr0(handle);
+		effect_Compostar_SONANDO_tr0(handle);
 	} 
 }
 
 /* The reactions of state MEZCLANDO. */
-static void react_activity_COMPOSTANDO_r1_MEZCLANDO(Compostera* handle)
+static void react_Compostar_MEZCLANDO(Compostera* handle)
 {
 	/* The reactions of state MEZCLANDO. */
-	if (check_activity_COMPOSTANDO_r1_MEZCLANDO_tr0_tr0(handle) == bool_true)
+	if (check_Compostar_MEZCLANDO_tr0_tr0(handle) == bool_true)
 	{ 
-		effect_activity_COMPOSTANDO_r1_MEZCLANDO_tr0(handle);
-	} 
+		effect_Compostar_MEZCLANDO_tr0(handle);
+	}  else
+	{
+		if (check_Compostar_MEZCLANDO_tr1_tr1(handle) == bool_true)
+		{ 
+			effect_Compostar_MEZCLANDO_tr1(handle);
+		} 
+	}
 }
 
 /* Default react sequence for initial entry  */
@@ -3145,24 +3232,24 @@ static void react_TEC4__entry_Default(Compostera* handle)
 }
 
 /* Default react sequence for initial entry  */
-static void react_activity__entry_Default(Compostera* handle)
+static void react_Humedad__entry_Default(Compostera* handle)
 {
 	/* Default react sequence for initial entry  */
-	enseq_activity_ESPERANDO_default(handle);
+	enseq_Humedad_ESPERANDO_default(handle);
 }
 
 /* Default react sequence for initial entry  */
-static void react_activity_COMPOSTANDO_r1__entry_Default(Compostera* handle)
+static void react_Temperatura__entry_Default(Compostera* handle)
 {
 	/* Default react sequence for initial entry  */
-	enseq_activity_COMPOSTANDO_r1_RELLENANDO_default(handle);
+	enseq_Temperatura_ESPERANDO_default(handle);
 }
 
-/* The reactions of exit default. */
-static void react_activity_COMPOSTANDO_r1__exit_Default(Compostera* handle)
+/* Default react sequence for initial entry  */
+static void react_Compostar__entry_Default(Compostera* handle)
 {
-	/* The reactions of exit default. */
-	effect_activity_COMPOSTANDO_tr0(handle);
+	/* Default react sequence for initial entry  */
+	enseq_Compostar_ESPERANDO_default(handle);
 }
 
 

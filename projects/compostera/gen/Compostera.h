@@ -12,7 +12,7 @@ extern "C" {
 */
 
 /*! Define dimension of the state configuration vector for orthogonal states. */
-#define COMPOSTERA_MAX_ORTHOGONAL_STATES 5
+#define COMPOSTERA_MAX_ORTHOGONAL_STATES 7
 
 /*! Define maximum number of time events that can be active at once */
 #define COMPOSTERA_MAX_PARALLEL_TIME_EVENTS 5
@@ -46,14 +46,15 @@ extern "C" {
 #define SCVI_COMPOSTERA_TEC4_NO_OPRIMIDO 3
 #define SCVI_COMPOSTERA_TEC4_DEBOUNCE_N_O 3
 #define SCVI_COMPOSTERA_TEC4_VALIDACION_N_O 3
-#define SCVI_COMPOSTERA_ACTIVITY_ESPERANDO 4
-#define SCVI_COMPOSTERA_ACTIVITY_ENFRIANDO 4
-#define SCVI_COMPOSTERA_ACTIVITY_HUMEDECIENDO 4
-#define SCVI_COMPOSTERA_ACTIVITY_DESHUMEDECIENDO 4
-#define SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO 4
-#define SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO_R1_RELLENANDO 4
-#define SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO_R1_SONANDO 4
-#define SCVI_COMPOSTERA_ACTIVITY_COMPOSTANDO_R1_MEZCLANDO 4
+#define SCVI_COMPOSTERA_HUMEDAD_HUMEDECIENDO 4
+#define SCVI_COMPOSTERA_HUMEDAD_DESHUMEDECIENDO 4
+#define SCVI_COMPOSTERA_HUMEDAD_ESPERANDO 4
+#define SCVI_COMPOSTERA_TEMPERATURA_ENFRIANDO 5
+#define SCVI_COMPOSTERA_TEMPERATURA_ESPERANDO 5
+#define SCVI_COMPOSTERA_COMPOSTAR_RELLENANDO 6
+#define SCVI_COMPOSTERA_COMPOSTAR_ESPERANDO 6
+#define SCVI_COMPOSTERA_COMPOSTAR_SONANDO 6
+#define SCVI_COMPOSTERA_COMPOSTAR_MEZCLANDO 6
 
 /*! Enumeration of all states */ 
 typedef enum
@@ -87,14 +88,15 @@ typedef enum
 	Compostera_TEC4_NO_OPRIMIDO,
 	Compostera_TEC4_DEBOUNCE_N_O,
 	Compostera_TEC4_VALIDACION_N_O,
-	Compostera_activity_ESPERANDO,
-	Compostera_activity_ENFRIANDO,
-	Compostera_activity_HUMEDECIENDO,
-	Compostera_activity_DESHUMEDECIENDO,
-	Compostera_activity_COMPOSTANDO,
-	Compostera_activity_COMPOSTANDO_r1_RELLENANDO,
-	Compostera_activity_COMPOSTANDO_r1_SONANDO,
-	Compostera_activity_COMPOSTANDO_r1_MEZCLANDO
+	Compostera_Humedad_HUMEDECIENDO,
+	Compostera_Humedad_DESHUMEDECIENDO,
+	Compostera_Humedad_ESPERANDO,
+	Compostera_Temperatura_ENFRIANDO,
+	Compostera_Temperatura_ESPERANDO,
+	Compostera_Compostar_RELLENANDO,
+	Compostera_Compostar_ESPERANDO,
+	Compostera_Compostar_SONANDO,
+	Compostera_Compostar_MEZCLANDO
 } ComposteraStates;
 
 /*! Type definition of the data structure for the ComposteraIface interface scope. */
@@ -151,8 +153,8 @@ typedef struct
 	sc_boolean compostera_TEC3_DEBOUNCE_N_O_tev0_raised;
 	sc_boolean compostera_TEC4_DEBOUNCE_O_tev0_raised;
 	sc_boolean compostera_TEC4_DEBOUNCE_N_O_tev0_raised;
-	sc_boolean compostera_activity_COMPOSTANDO_r1_RELLENANDO_tev0_raised;
-	sc_boolean compostera_activity_COMPOSTANDO_r1_MEZCLANDO_tev0_raised;
+	sc_boolean compostera_Compostar_RELLENANDO_tev0_raised;
+	sc_boolean compostera_Compostar_MEZCLANDO_tev0_raised;
 } ComposteraTimeEvents;
 
 
