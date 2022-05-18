@@ -15,12 +15,10 @@ static sc_boolean check_TEC1_OPRIMIDO_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC1_VALIDACION_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC1_VALIDACION_O_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC1_NO_OPRIMIDO_tr0_tr0(const Compostera* handle);
-static sc_boolean check_TEC1_DEBOUNCE_N_O_tr0_tr0(const Compostera* handle);
-static sc_boolean check_TEC1_VALIDACION_N_O_tr0_tr0(const Compostera* handle);
-static sc_boolean check_TEC1_VALIDACION_N_O_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC2_DEBOUNCE_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC2_INICIO_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC2_OPRIMIDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_TEC2_OPRIMIDO_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC2_VALIDACION_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC2_VALIDACION_O_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC2_NO_OPRIMIDO_tr0_tr0(const Compostera* handle);
@@ -30,6 +28,7 @@ static sc_boolean check_TEC2_VALIDACION_N_O_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC3_DEBOUNCE_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC3_INICIO_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC3_OPRIMIDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_TEC3_OPRIMIDO_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC3_VALIDACION_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC3_VALIDACION_O_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC3_NO_OPRIMIDO_tr0_tr0(const Compostera* handle);
@@ -39,6 +38,7 @@ static sc_boolean check_TEC3_VALIDACION_N_O_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC4_DEBOUNCE_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC4_INICIO_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC4_OPRIMIDO_tr0_tr0(const Compostera* handle);
+static sc_boolean check_TEC4_OPRIMIDO_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC4_VALIDACION_O_tr0_tr0(const Compostera* handle);
 static sc_boolean check_TEC4_VALIDACION_O_tr1_tr1(const Compostera* handle);
 static sc_boolean check_TEC4_NO_OPRIMIDO_tr0_tr0(const Compostera* handle);
@@ -66,12 +66,10 @@ static void effect_TEC1_OPRIMIDO_tr0(Compostera* handle);
 static void effect_TEC1_VALIDACION_O_tr0(Compostera* handle);
 static void effect_TEC1_VALIDACION_O_tr1(Compostera* handle);
 static void effect_TEC1_NO_OPRIMIDO_tr0(Compostera* handle);
-static void effect_TEC1_DEBOUNCE_N_O_tr0(Compostera* handle);
-static void effect_TEC1_VALIDACION_N_O_tr0(Compostera* handle);
-static void effect_TEC1_VALIDACION_N_O_tr1(Compostera* handle);
 static void effect_TEC2_DEBOUNCE_O_tr0(Compostera* handle);
 static void effect_TEC2_INICIO_tr0(Compostera* handle);
 static void effect_TEC2_OPRIMIDO_tr0(Compostera* handle);
+static void effect_TEC2_OPRIMIDO_tr1(Compostera* handle);
 static void effect_TEC2_VALIDACION_O_tr0(Compostera* handle);
 static void effect_TEC2_VALIDACION_O_tr1(Compostera* handle);
 static void effect_TEC2_NO_OPRIMIDO_tr0(Compostera* handle);
@@ -81,6 +79,7 @@ static void effect_TEC2_VALIDACION_N_O_tr1(Compostera* handle);
 static void effect_TEC3_DEBOUNCE_O_tr0(Compostera* handle);
 static void effect_TEC3_INICIO_tr0(Compostera* handle);
 static void effect_TEC3_OPRIMIDO_tr0(Compostera* handle);
+static void effect_TEC3_OPRIMIDO_tr1(Compostera* handle);
 static void effect_TEC3_VALIDACION_O_tr0(Compostera* handle);
 static void effect_TEC3_VALIDACION_O_tr1(Compostera* handle);
 static void effect_TEC3_NO_OPRIMIDO_tr0(Compostera* handle);
@@ -90,6 +89,7 @@ static void effect_TEC3_VALIDACION_N_O_tr1(Compostera* handle);
 static void effect_TEC4_DEBOUNCE_O_tr0(Compostera* handle);
 static void effect_TEC4_INICIO_tr0(Compostera* handle);
 static void effect_TEC4_OPRIMIDO_tr0(Compostera* handle);
+static void effect_TEC4_OPRIMIDO_tr1(Compostera* handle);
 static void effect_TEC4_VALIDACION_O_tr0(Compostera* handle);
 static void effect_TEC4_VALIDACION_O_tr1(Compostera* handle);
 static void effect_TEC4_NO_OPRIMIDO_tr0(Compostera* handle);
@@ -114,7 +114,6 @@ static void effect_Compostar_MEZCLANDO_tr1(Compostera* handle);
 static void enact_TEC1_DEBOUNCE_O(Compostera* handle);
 static void enact_TEC1_OPRIMIDO(Compostera* handle);
 static void enact_TEC1_NO_OPRIMIDO(Compostera* handle);
-static void enact_TEC1_DEBOUNCE_N_O(Compostera* handle);
 static void enact_TEC2_DEBOUNCE_O(Compostera* handle);
 static void enact_TEC2_OPRIMIDO(Compostera* handle);
 static void enact_TEC2_NO_OPRIMIDO(Compostera* handle);
@@ -137,7 +136,6 @@ static void enact_Compostar_ESPERANDO(Compostera* handle);
 static void enact_Compostar_SONANDO(Compostera* handle);
 static void enact_Compostar_MEZCLANDO(Compostera* handle);
 static void exact_TEC1_DEBOUNCE_O(Compostera* handle);
-static void exact_TEC1_DEBOUNCE_N_O(Compostera* handle);
 static void exact_TEC2_DEBOUNCE_O(Compostera* handle);
 static void exact_TEC2_DEBOUNCE_N_O(Compostera* handle);
 static void exact_TEC3_DEBOUNCE_O(Compostera* handle);
@@ -151,8 +149,6 @@ static void enseq_TEC1_INICIO_default(Compostera* handle);
 static void enseq_TEC1_OPRIMIDO_default(Compostera* handle);
 static void enseq_TEC1_VALIDACION_O_default(Compostera* handle);
 static void enseq_TEC1_NO_OPRIMIDO_default(Compostera* handle);
-static void enseq_TEC1_DEBOUNCE_N_O_default(Compostera* handle);
-static void enseq_TEC1_VALIDACION_N_O_default(Compostera* handle);
 static void enseq_TEC2_DEBOUNCE_O_default(Compostera* handle);
 static void enseq_TEC2_INICIO_default(Compostera* handle);
 static void enseq_TEC2_OPRIMIDO_default(Compostera* handle);
@@ -195,8 +191,6 @@ static void exseq_TEC1_INICIO(Compostera* handle);
 static void exseq_TEC1_OPRIMIDO(Compostera* handle);
 static void exseq_TEC1_VALIDACION_O(Compostera* handle);
 static void exseq_TEC1_NO_OPRIMIDO(Compostera* handle);
-static void exseq_TEC1_DEBOUNCE_N_O(Compostera* handle);
-static void exseq_TEC1_VALIDACION_N_O(Compostera* handle);
 static void exseq_TEC2_DEBOUNCE_O(Compostera* handle);
 static void exseq_TEC2_INICIO(Compostera* handle);
 static void exseq_TEC2_OPRIMIDO(Compostera* handle);
@@ -239,8 +233,6 @@ static void react_TEC1_INICIO(Compostera* handle);
 static void react_TEC1_OPRIMIDO(Compostera* handle);
 static void react_TEC1_VALIDACION_O(Compostera* handle);
 static void react_TEC1_NO_OPRIMIDO(Compostera* handle);
-static void react_TEC1_DEBOUNCE_N_O(Compostera* handle);
-static void react_TEC1_VALIDACION_N_O(Compostera* handle);
 static void react_TEC2_DEBOUNCE_O(Compostera* handle);
 static void react_TEC2_INICIO(Compostera* handle);
 static void react_TEC2_OPRIMIDO(Compostera* handle);
@@ -356,16 +348,6 @@ void compostera_runCycle(Compostera* handle)
 		case Compostera_TEC1_NO_OPRIMIDO:
 		{
 			react_TEC1_NO_OPRIMIDO(handle);
-			break;
-		}
-		case Compostera_TEC1_DEBOUNCE_N_O:
-		{
-			react_TEC1_DEBOUNCE_N_O(handle);
-			break;
-		}
-		case Compostera_TEC1_VALIDACION_N_O:
-		{
-			react_TEC1_VALIDACION_N_O(handle);
 			break;
 		}
 		case Compostera_TEC2_DEBOUNCE_O:
@@ -593,14 +575,6 @@ sc_boolean compostera_isStateActive(const Compostera* handle, ComposteraStates s
 			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_TEC1_NO_OPRIMIDO] == Compostera_TEC1_NO_OPRIMIDO
 			);
 			break;
-		case Compostera_TEC1_DEBOUNCE_N_O :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_TEC1_DEBOUNCE_N_O] == Compostera_TEC1_DEBOUNCE_N_O
-			);
-			break;
-		case Compostera_TEC1_VALIDACION_N_O :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_TEC1_VALIDACION_N_O] == Compostera_TEC1_VALIDACION_N_O
-			);
-			break;
 		case Compostera_TEC2_DEBOUNCE_O :
 			result = (sc_boolean) (handle->stateConfVector[SCVI_COMPOSTERA_TEC2_DEBOUNCE_O] == Compostera_TEC2_DEBOUNCE_O
 			);
@@ -746,7 +720,6 @@ static void clearInEvents(Compostera* handle)
 	handle->internal.siAberturaTapa_raised = bool_false;
 	handle->internal.siCerradoTapa_raised = bool_false;
 	handle->timeEvents.compostera_TEC1_DEBOUNCE_O_tev0_raised = bool_false;
-	handle->timeEvents.compostera_TEC1_DEBOUNCE_N_O_tev0_raised = bool_false;
 	handle->timeEvents.compostera_TEC2_DEBOUNCE_O_tev0_raised = bool_false;
 	handle->timeEvents.compostera_TEC2_DEBOUNCE_N_O_tev0_raised = bool_false;
 	handle->timeEvents.compostera_TEC3_DEBOUNCE_O_tev0_raised = bool_false;
@@ -876,21 +849,6 @@ static sc_boolean check_TEC1_NO_OPRIMIDO_tr0_tr0(const Compostera* handle)
 	return handle->iface.evTEC1Oprimido_raised;
 }
 
-static sc_boolean check_TEC1_DEBOUNCE_N_O_tr0_tr0(const Compostera* handle)
-{
-	return handle->timeEvents.compostera_TEC1_DEBOUNCE_N_O_tev0_raised;
-}
-
-static sc_boolean check_TEC1_VALIDACION_N_O_tr0_tr0(const Compostera* handle)
-{
-	return handle->iface.evTEC1NoOprimido_raised;
-}
-
-static sc_boolean check_TEC1_VALIDACION_N_O_tr1_tr1(const Compostera* handle)
-{
-	return handle->iface.evTEC1Oprimido_raised;
-}
-
 static sc_boolean check_TEC2_DEBOUNCE_O_tr0_tr0(const Compostera* handle)
 {
 	return handle->timeEvents.compostera_TEC2_DEBOUNCE_O_tev0_raised;
@@ -904,6 +862,11 @@ static sc_boolean check_TEC2_INICIO_tr0_tr0(const Compostera* handle)
 static sc_boolean check_TEC2_OPRIMIDO_tr0_tr0(const Compostera* handle)
 {
 	return handle->iface.evTEC2NoOprimido_raised;
+}
+
+static sc_boolean check_TEC2_OPRIMIDO_tr1_tr1(const Compostera* handle)
+{
+	return handle->iface.evTEC2Oprimido_raised;
 }
 
 static sc_boolean check_TEC2_VALIDACION_O_tr0_tr0(const Compostera* handle)
@@ -951,6 +914,11 @@ static sc_boolean check_TEC3_OPRIMIDO_tr0_tr0(const Compostera* handle)
 	return handle->iface.evTEC3NoOprimido_raised;
 }
 
+static sc_boolean check_TEC3_OPRIMIDO_tr1_tr1(const Compostera* handle)
+{
+	return handle->iface.evTEC3Oprimido_raised;
+}
+
 static sc_boolean check_TEC3_VALIDACION_O_tr0_tr0(const Compostera* handle)
 {
 	return handle->iface.evTEC3Oprimido_raised;
@@ -994,6 +962,11 @@ static sc_boolean check_TEC4_INICIO_tr0_tr0(const Compostera* handle)
 static sc_boolean check_TEC4_OPRIMIDO_tr0_tr0(const Compostera* handle)
 {
 	return handle->iface.evTEC4NoOprimido_raised;
+}
+
+static sc_boolean check_TEC4_OPRIMIDO_tr1_tr1(const Compostera* handle)
+{
+	return handle->iface.evTEC4Oprimido_raised;
 }
 
 static sc_boolean check_TEC4_VALIDACION_O_tr0_tr0(const Compostera* handle)
@@ -1116,7 +1089,7 @@ static void effect_TEC1_INICIO_tr0(Compostera* handle)
 static void effect_TEC1_OPRIMIDO_tr0(Compostera* handle)
 {
 	exseq_TEC1_OPRIMIDO(handle);
-	enseq_TEC1_DEBOUNCE_N_O_default(handle);
+	enseq_TEC1_NO_OPRIMIDO_default(handle);
 }
 
 static void effect_TEC1_VALIDACION_O_tr0(Compostera* handle)
@@ -1137,24 +1110,6 @@ static void effect_TEC1_NO_OPRIMIDO_tr0(Compostera* handle)
 	enseq_TEC1_DEBOUNCE_O_default(handle);
 }
 
-static void effect_TEC1_DEBOUNCE_N_O_tr0(Compostera* handle)
-{
-	exseq_TEC1_DEBOUNCE_N_O(handle);
-	enseq_TEC1_VALIDACION_N_O_default(handle);
-}
-
-static void effect_TEC1_VALIDACION_N_O_tr0(Compostera* handle)
-{
-	exseq_TEC1_VALIDACION_N_O(handle);
-	enseq_TEC1_NO_OPRIMIDO_default(handle);
-}
-
-static void effect_TEC1_VALIDACION_N_O_tr1(Compostera* handle)
-{
-	exseq_TEC1_VALIDACION_N_O(handle);
-	enseq_TEC1_OPRIMIDO_default(handle);
-}
-
 static void effect_TEC2_DEBOUNCE_O_tr0(Compostera* handle)
 {
 	exseq_TEC2_DEBOUNCE_O(handle);
@@ -1171,6 +1126,12 @@ static void effect_TEC2_OPRIMIDO_tr0(Compostera* handle)
 {
 	exseq_TEC2_OPRIMIDO(handle);
 	enseq_TEC2_DEBOUNCE_N_O_default(handle);
+}
+
+static void effect_TEC2_OPRIMIDO_tr1(Compostera* handle)
+{
+	exseq_TEC2_OPRIMIDO(handle);
+	enseq_TEC2_OPRIMIDO_default(handle);
 }
 
 static void effect_TEC2_VALIDACION_O_tr0(Compostera* handle)
@@ -1227,6 +1188,12 @@ static void effect_TEC3_OPRIMIDO_tr0(Compostera* handle)
 	enseq_TEC3_DEBOUNCE_N_O_default(handle);
 }
 
+static void effect_TEC3_OPRIMIDO_tr1(Compostera* handle)
+{
+	exseq_TEC3_OPRIMIDO(handle);
+	enseq_TEC3_OPRIMIDO_default(handle);
+}
+
 static void effect_TEC3_VALIDACION_O_tr0(Compostera* handle)
 {
 	exseq_TEC3_VALIDACION_O(handle);
@@ -1279,6 +1246,12 @@ static void effect_TEC4_OPRIMIDO_tr0(Compostera* handle)
 {
 	exseq_TEC4_OPRIMIDO(handle);
 	enseq_TEC4_DEBOUNCE_N_O_default(handle);
+}
+
+static void effect_TEC4_OPRIMIDO_tr1(Compostera* handle)
+{
+	exseq_TEC4_OPRIMIDO(handle);
+	enseq_TEC4_OPRIMIDO_default(handle);
 }
 
 static void effect_TEC4_VALIDACION_O_tr0(Compostera* handle)
@@ -1426,13 +1399,6 @@ static void enact_TEC1_NO_OPRIMIDO(Compostera* handle)
 {
 	/* Entry action for state 'NO_OPRIMIDO'. */
 	handle->internal.siCerradoTapa_raised = bool_true;
-}
-
-/* Entry action for state 'DEBOUNCE_N_O'. */
-static void enact_TEC1_DEBOUNCE_N_O(Compostera* handle)
-{
-	/* Entry action for state 'DEBOUNCE_N_O'. */
-	compostera_setTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_TEC1_DEBOUNCE_N_O_tev0_raised) , 100, bool_false);
 }
 
 /* Entry action for state 'DEBOUNCE_O'. */
@@ -1596,13 +1562,6 @@ static void exact_TEC1_DEBOUNCE_O(Compostera* handle)
 	compostera_unsetTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_TEC1_DEBOUNCE_O_tev0_raised) );		
 }
 
-/* Exit action for state 'DEBOUNCE_N_O'. */
-static void exact_TEC1_DEBOUNCE_N_O(Compostera* handle)
-{
-	/* Exit action for state 'DEBOUNCE_N_O'. */
-	compostera_unsetTimer(handle, (sc_eventid) &(handle->timeEvents.compostera_TEC1_DEBOUNCE_N_O_tev0_raised) );		
-}
-
 /* Exit action for state 'DEBOUNCE_O'. */
 static void exact_TEC2_DEBOUNCE_O(Compostera* handle)
 {
@@ -1699,23 +1658,6 @@ static void enseq_TEC1_NO_OPRIMIDO_default(Compostera* handle)
 	/* 'default' enter sequence for state NO_OPRIMIDO */
 	enact_TEC1_NO_OPRIMIDO(handle);
 	handle->stateConfVector[0] = Compostera_TEC1_NO_OPRIMIDO;
-	handle->stateConfVectorPosition = 0;
-}
-
-/* 'default' enter sequence for state DEBOUNCE_N_O */
-static void enseq_TEC1_DEBOUNCE_N_O_default(Compostera* handle)
-{
-	/* 'default' enter sequence for state DEBOUNCE_N_O */
-	enact_TEC1_DEBOUNCE_N_O(handle);
-	handle->stateConfVector[0] = Compostera_TEC1_DEBOUNCE_N_O;
-	handle->stateConfVectorPosition = 0;
-}
-
-/* 'default' enter sequence for state VALIDACION_N_O */
-static void enseq_TEC1_VALIDACION_N_O_default(Compostera* handle)
-{
-	/* 'default' enter sequence for state VALIDACION_N_O */
-	handle->stateConfVector[0] = Compostera_TEC1_VALIDACION_N_O;
 	handle->stateConfVectorPosition = 0;
 }
 
@@ -2070,23 +2012,6 @@ static void exseq_TEC1_NO_OPRIMIDO(Compostera* handle)
 	handle->stateConfVectorPosition = 0;
 }
 
-/* Default exit sequence for state DEBOUNCE_N_O */
-static void exseq_TEC1_DEBOUNCE_N_O(Compostera* handle)
-{
-	/* Default exit sequence for state DEBOUNCE_N_O */
-	handle->stateConfVector[0] = Compostera_last_state;
-	handle->stateConfVectorPosition = 0;
-	exact_TEC1_DEBOUNCE_N_O(handle);
-}
-
-/* Default exit sequence for state VALIDACION_N_O */
-static void exseq_TEC1_VALIDACION_N_O(Compostera* handle)
-{
-	/* Default exit sequence for state VALIDACION_N_O */
-	handle->stateConfVector[0] = Compostera_last_state;
-	handle->stateConfVectorPosition = 0;
-}
-
 /* Default exit sequence for state DEBOUNCE_O */
 static void exseq_TEC2_DEBOUNCE_O(Compostera* handle)
 {
@@ -2367,16 +2292,6 @@ static void exseq_TEC1(Compostera* handle)
 			exseq_TEC1_NO_OPRIMIDO(handle);
 			break;
 		}
-		case Compostera_TEC1_DEBOUNCE_N_O :
-		{
-			exseq_TEC1_DEBOUNCE_N_O(handle);
-			break;
-		}
-		case Compostera_TEC1_VALIDACION_N_O :
-		{
-			exseq_TEC1_VALIDACION_N_O(handle);
-			break;
-		}
 		default: break;
 	}
 }
@@ -2653,32 +2568,6 @@ static void react_TEC1_NO_OPRIMIDO(Compostera* handle)
 	} 
 }
 
-/* The reactions of state DEBOUNCE_N_O. */
-static void react_TEC1_DEBOUNCE_N_O(Compostera* handle)
-{
-	/* The reactions of state DEBOUNCE_N_O. */
-	if (check_TEC1_DEBOUNCE_N_O_tr0_tr0(handle) == bool_true)
-	{ 
-		effect_TEC1_DEBOUNCE_N_O_tr0(handle);
-	} 
-}
-
-/* The reactions of state VALIDACION_N_O. */
-static void react_TEC1_VALIDACION_N_O(Compostera* handle)
-{
-	/* The reactions of state VALIDACION_N_O. */
-	if (check_TEC1_VALIDACION_N_O_tr0_tr0(handle) == bool_true)
-	{ 
-		effect_TEC1_VALIDACION_N_O_tr0(handle);
-	}  else
-	{
-		if (check_TEC1_VALIDACION_N_O_tr1_tr1(handle) == bool_true)
-		{ 
-			effect_TEC1_VALIDACION_N_O_tr1(handle);
-		} 
-	}
-}
-
 /* The reactions of state DEBOUNCE_O. */
 static void react_TEC2_DEBOUNCE_O(Compostera* handle)
 {
@@ -2706,7 +2595,13 @@ static void react_TEC2_OPRIMIDO(Compostera* handle)
 	if (check_TEC2_OPRIMIDO_tr0_tr0(handle) == bool_true)
 	{ 
 		effect_TEC2_OPRIMIDO_tr0(handle);
-	} 
+	}  else
+	{
+		if (check_TEC2_OPRIMIDO_tr1_tr1(handle) == bool_true)
+		{ 
+			effect_TEC2_OPRIMIDO_tr1(handle);
+		} 
+	}
 }
 
 /* The reactions of state VALIDACION_O. */
@@ -2788,7 +2683,13 @@ static void react_TEC3_OPRIMIDO(Compostera* handle)
 	if (check_TEC3_OPRIMIDO_tr0_tr0(handle) == bool_true)
 	{ 
 		effect_TEC3_OPRIMIDO_tr0(handle);
-	} 
+	}  else
+	{
+		if (check_TEC3_OPRIMIDO_tr1_tr1(handle) == bool_true)
+		{ 
+			effect_TEC3_OPRIMIDO_tr1(handle);
+		} 
+	}
 }
 
 /* The reactions of state VALIDACION_O. */
@@ -2870,7 +2771,13 @@ static void react_TEC4_OPRIMIDO(Compostera* handle)
 	if (check_TEC4_OPRIMIDO_tr0_tr0(handle) == bool_true)
 	{ 
 		effect_TEC4_OPRIMIDO_tr0(handle);
-	} 
+	}  else
+	{
+		if (check_TEC4_OPRIMIDO_tr1_tr1(handle) == bool_true)
+		{ 
+			effect_TEC4_OPRIMIDO_tr1(handle);
+		} 
+	}
 }
 
 /* The reactions of state VALIDACION_O. */

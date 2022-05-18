@@ -127,12 +127,20 @@ uint32_t Buttons_GetStatus_(void) {
 	uint8_t ret = false;
 	uint32_t idx;
 
-	for (idx = 0; idx < 4; ++idx) {
+	for (idx = 1; idx < 4; ++idx) {
 		if (gpioRead( TEC1 + idx ) == 0)
 			ret |= 1 << idx;
 	}
 
 	return ret;
+}
+
+/*! This function scan all EDU-CIAA-NXP button TEC1
+ *  and return ID of pressed button TEC1
+ *  or false if no button was pressed.
+ */
+bool_t Button1_GetStatus_(void) {
+	return !gpioRead( TEC1 );
 }
 
 
@@ -145,7 +153,9 @@ int main(void)
 	uint32_t i;
 
 	uint32_t BUTTON_Status;
+	bool_t BUTTON_1_Status;
 
+	uint32_t BUTTON_1_Press = 0;
 	uint32_t BUTTON_Press = 0;
 
 	/* Generic Initialization */
@@ -190,50 +200,55 @@ int main(void)
 
 					/* Then Mark as Attached -> Ticks.evid => OK */
 					MarkAsAttEvent( ticks, NOF_TIMERS, ticks[i].evid );
+
 				}
 			}
 
 			/* Then Get status of buttons */
 			BUTTON_Status = Buttons_GetStatus_();
+			BUTTON_1_Status = Button1_GetStatus_();
 
-			if (BUTTON_Status != 0) {
-				switch (BUTTON_Status) {
-					case BUTTON_2:
-						composteraIface_raise_evTEC2Oprimido(&statechart);
-						BUTTON_Press = BUTTON_2;
-						break;
-					case BUTTON_3:
-						composteraIface_raise_evTEC3Oprimido(&statechart);
-						BUTTON_Press = BUTTON_3;
-						break;
-					case BUTTON_4:
-						composteraIface_raise_evTEC4Oprimido(&statechart);
-						BUTTON_Press = BUTTON_4;
-						break;
-					default:
-						if(BUTTON_Status & BUTTON_1) {
-							composteraIface_raise_evTEC1Oprimido(&statechart);
-							BUTTON_Press = BUTTON_1;
-						} else BUTTON_Press = 0;
-						break;
-				}
-
+			if (BUTTON_1_Status != 0) {
+				composteraIface_raise_evTEC1Oprimido(&statechart);
+				BUTTON_1_Press = 1;
+				BUTTON_Press = BUTTON_1;
 			} else {
-				switch (BUTTON_Press) {
-					case BUTTON_1:
-						composteraIface_raise_evTEC1NoOprimido(&statechart);
-						break;
-					case BUTTON_2:
-						composteraIface_raise_evTEC2NoOprimido(&statechart);
-						break;
-					case BUTTON_3:
-						composteraIface_raise_evTEC3NoOprimido(&statechart);
-						break;
-					case BUTTON_4:
-						composteraIface_raise_evTEC4NoOprimido(&statechart);
-						break;
+				if (BUTTON_Status != 0 && BUTTON_1_Press != 1) {
+					switch (BUTTON_Status) {
+						case BUTTON_2:
+							composteraIface_raise_evTEC2Oprimido(&statechart);
+							BUTTON_Press = BUTTON_2;
+							break;
+						case BUTTON_3:
+							composteraIface_raise_evTEC3Oprimido(&statechart);
+							BUTTON_Press = BUTTON_3;
+							break;
+						case BUTTON_4:
+							composteraIface_raise_evTEC4Oprimido(&statechart);
+							BUTTON_Press = BUTTON_4;
+							break;
+					}
+
+				} else {
+					switch (BUTTON_Press) {
+						case BUTTON_1:
+							composteraIface_raise_evTEC1NoOprimido(&statechart);
+							BUTTON_1_Press = 0;
+							break;
+						case BUTTON_2:
+							composteraIface_raise_evTEC2NoOprimido(&statechart);
+							break;
+						case BUTTON_3:
+							composteraIface_raise_evTEC3NoOprimido(&statechart);
+							break;
+						case BUTTON_4:
+							composteraIface_raise_evTEC4NoOprimido(&statechart);
+							break;
+					}
 				}
 			}
+
+
 
 			/* Then Run an Cycle of Statechart */
 			compostera_runCycle(&statechart);		// Run Cycle of Statechart

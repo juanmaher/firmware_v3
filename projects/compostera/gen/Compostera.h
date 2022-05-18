@@ -23,8 +23,6 @@ extern "C" {
 #define SCVI_COMPOSTERA_TEC1_OPRIMIDO 0
 #define SCVI_COMPOSTERA_TEC1_VALIDACION_O 0
 #define SCVI_COMPOSTERA_TEC1_NO_OPRIMIDO 0
-#define SCVI_COMPOSTERA_TEC1_DEBOUNCE_N_O 0
-#define SCVI_COMPOSTERA_TEC1_VALIDACION_N_O 0
 #define SCVI_COMPOSTERA_TEC2_DEBOUNCE_O 1
 #define SCVI_COMPOSTERA_TEC2_INICIO 1
 #define SCVI_COMPOSTERA_TEC2_OPRIMIDO 1
@@ -65,8 +63,6 @@ typedef enum
 	Compostera_TEC1_OPRIMIDO,
 	Compostera_TEC1_VALIDACION_O,
 	Compostera_TEC1_NO_OPRIMIDO,
-	Compostera_TEC1_DEBOUNCE_N_O,
-	Compostera_TEC1_VALIDACION_N_O,
 	Compostera_TEC2_DEBOUNCE_O,
 	Compostera_TEC2_INICIO,
 	Compostera_TEC2_OPRIMIDO,
@@ -146,7 +142,6 @@ typedef struct
 typedef struct
 {
 	sc_boolean compostera_TEC1_DEBOUNCE_O_tev0_raised;
-	sc_boolean compostera_TEC1_DEBOUNCE_N_O_tev0_raised;
 	sc_boolean compostera_TEC2_DEBOUNCE_O_tev0_raised;
 	sc_boolean compostera_TEC2_DEBOUNCE_N_O_tev0_raised;
 	sc_boolean compostera_TEC3_DEBOUNCE_O_tev0_raised;
