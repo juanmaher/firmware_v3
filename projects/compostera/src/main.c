@@ -21,6 +21,10 @@
 #define TICKRATE_1MS	(1)				/* 1000 ticks per second */
 #define TICKRATE_MS		(TICKRATE_1MS)	/* 1000 ticks per second */
 
+#define BUTTON_1		0b0000001
+#define BUTTON_2    	0b0000010
+#define BUTTON_3    	0b0000100
+#define BUTTON_4    	0b0001000
 
 /*==================[internal data declaration]==============================*/
 
@@ -127,6 +131,7 @@ uint32_t Buttons_GetStatus_(void) {
 		if (gpioRead( TEC1 + idx ) == 0)
 			ret |= 1 << idx;
 	}
+
 	return ret;
 }
 
@@ -189,20 +194,49 @@ int main(void)
 			/* Then Get status of buttons */
 			BUTTON_Status = Buttons_GetStatus_();
 
+			if (BUTTON_Status != 0) {
+				switch (BUTTON_Status) {
+					case BUTTON_2:
+						composteraIface_raise_evTEC2Oprimido(&statechart);
+						break;
+					case BUTTON_3:
+						composteraIface_raise_evTEC3Oprimido(&statechart);
+						break;
+					case BUTTON_4:
+						composteraIface_raise_evTEC4Oprimido(&statechart);
+						break;
+					default:
+						if(BUTTON_Status & BUTTON_1) {
+							composteraIface_raise_evTEC1Oprimido(&statechart);
+						}
+						break;
+				}
+
+			} else {
+				composteraIface_raise_evTEC1NoOprimido(&statechart);
+				composteraIface_raise_evTEC2NoOprimido(&statechart);
+				composteraIface_raise_evTEC3NoOprimido(&statechart);
+				composteraIface_raise_evTEC4NoOprimido(&statechart);
+			}
+
+
+
+
+
 			/* Then if there are a pressed button */
-			if (BUTTON_Status != 0)
+			/*if (BUTTON_Status != 0)
 				/*if (BUTTON_Status == 2 | BUTTON_Status == 4 | BUTTON_Status == 6 | BUTTON_Status == 8) {
 					/* Then Raise an Event -> evTECXOprimodo => OK,
 					 * and Value of pressed button -> viTecla */
-					composteraIface_raise_evTECXOprimido(&statechart, BUTTON_Status);
+					/*composteraIface_raise_evTECXOprimido(&statechart, BUTTON_Status);
 				/*} else {
 					composteraIface_raise_evTEC1Oprimido(&statechart, BUTTON_Status);
 				}*/
-			else {
+			/*else {
 					composteraIface_raise_evTEC1NoOprimido(&statechart, BUTTON_Status);
 					/* Then else Raise an Event -> evTECXNoOprimido => OK */
-					composteraIface_raise_evTECXNoOprimido(&statechart, BUTTON_Status);
-			}
+					/*composteraIface_raise_evTECXNoOprimido(&statechart, BUTTON_Status);
+			}*/
 
 
 			/* Then Run an Cycle of Statechart */
