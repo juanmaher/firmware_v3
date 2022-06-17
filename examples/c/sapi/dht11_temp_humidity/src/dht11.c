@@ -64,23 +64,10 @@ int main( void )
    // ---------- CONFIGURACIONES ------------------------------
 
    boardConfig(); // Inicializar y configurar la plataforma
-   gpioInit( GPIO2, GPIO_OUTPUT );
-   while(1){
-	  gpioWrite( GPIO2, FALSE);
-	  //delay(5000); // Espero 1 segundo.
-	  //gpioWrite( GPIO2, TRUE);
-	  //delay(15000); // Espero 1 segundo.
-   }
-
 
    uartConfig( UART_USB, 115200 ); // Inicializar periferico UART_USB
 
-   gpioInit( GPIO4, GPIO_OUTPUT );
-   //gpioWrite( GPIO4, FALSE);
    dht11Init( GPIO1 ); // Inicializo el sensor DHT11
-
-
-
 
    // Variables para almacenar humedad y temperatura
    float humidity = 0, temperature = 0;
@@ -92,7 +79,6 @@ int main( void )
          // Si leyo bien prendo el LEDG y enciendo el LEDR
          gpioWrite( LEDG, ON );
          gpioWrite( LEDR, OFF );
-         gpioWrite( GPIO4, ON );
          // Informo los valores de los sensores
          printf( "Temperatura: %.2f grados C.\r\n", temperature );
          printf( "Humedad: %.2f  %.\r\n\r\n", humidity );
