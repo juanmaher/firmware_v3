@@ -109,8 +109,9 @@ static bool_t dht11_StartRead(void)
    (void) flag_timeout;   // Use a variable to not produce compiler Warnings
    (void) flag_error;     // Use a variable to not produce compiler Warnings
 
+
    dht11_GPIO_Low();
-   delayInaccurateMs(20);
+   delayInaccurateUs(500);
    dht11_GPIO_High();
 
    while(FALSE == flag_loop_end) {
@@ -118,9 +119,11 @@ static bool_t dht11_StartRead(void)
       case dht11_state_start:
 
          dht11_TimeOutReset(DHT11_TIMEOUT_MAX);
+
          while(dht11_state_start == state) {
             if(dht11_GPIO_Read() == FALSE) {
                state = dht11_state_low;
+
             }
             if(!dht11_TimeOutCheck()) {
                state = dht11_state_timeout;
@@ -165,6 +168,7 @@ static bool_t dht11_StartRead(void)
          break;
 
       case dht11_state_timeout:
+    	  printf( "State_timeout\r\n");
          flag_timeout = TRUE;
          state = dht11_state_end;
          break;
@@ -258,8 +262,15 @@ bool_t dht11Read( float *phum, float *ptemp )
 {
    if(TRUE == dht11_StartRead()) {
       if(TRUE == dht11_ProcessData()) {
-         *phum 	= ((float)dht11_byte[0]) + ((float)dht11_byte[1])/10;
-         *ptemp 	= ((float)dht11_byte[2]) + ((float)dht11_byte[3])/10;
+         //*phum 	= ((float)dht11_byte[0]) + ((float)dht11_byte[1])/10;
+         *phum 	= (dht11_byte[0]) << 8 | (dht11_byte[1]);
+         *phum 	*= 0.1;
+         //*ptemp 	= ((float)dht11_byte[2]) + ((float)dht11_byte[3])/10;
+         *ptemp = (dht11_byte[2] & 0x7F) << 8 | (dht11_byte[3]);
+         *ptemp *= 0.1;
+         if (dht11_byte[2] & 0x80) {
+        	 *ptemp *= -1;
+         }
          return TRUE;
       }
    }
