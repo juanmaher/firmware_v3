@@ -1,0 +1,6 @@
+[submodule "AutoCompost"]
+	path = AutoCompost
+	url = git@github.com:juanmaher/AutoCompost.git
+[submodule "TPs_Embebidos_FIUBA"]
+	path = TPs_Embebidos_FIUBA
+	url = git@github.com:juanmaher/TPs_Embebidos_FIUBA.git
